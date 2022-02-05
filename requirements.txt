@@ -1,0 +1,4 @@
+asgiref==3.4.1
+autopep8==1.6.0
+Django==3.2.9
+virtualenv==20.10.0
