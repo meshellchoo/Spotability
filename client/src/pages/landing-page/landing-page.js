@@ -31,7 +31,17 @@ function LandingPage () {
       <Spacer/>
       <IconButton borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}></IconButton>
     </Box>
-    <Title/>
+    
+    <Box >
+      <Title/>
+    </Box>
+
+    <Box>
+      <Flex my="150px">
+        <LoginButton/>
+      </Flex>
+    </Box>
+    
   </VStack>
   )
 }
