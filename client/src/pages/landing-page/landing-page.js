@@ -31,9 +31,8 @@ function LandingPage () {
   const {colorMode, toggleColorMode} = useColorMode();
   return (
   <VStack>
-    <Box p={3}>
-      <Spacer/>
-      <IconButton borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}></IconButton>
+    <Box my={10}>
+      <IconButton size="lg" colorScheme={colorMode ==='dark'? "pink" : "blackAlpha"} variant="solid" shadow="lg" borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}></IconButton>
     </Box>
     
     <Box >

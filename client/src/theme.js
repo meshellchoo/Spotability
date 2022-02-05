@@ -16,7 +16,7 @@ import "@fontsource/roboto"
 const fonts = {
   fonts : {
     heading: "Inter",
-    body: "Roboto"
+    body: "Inter"
   },
   fontWeights: {
     normal: 400,

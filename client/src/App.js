@@ -9,9 +9,9 @@ import {
   Grid,
   IconButton,
   Button,
+  Flex,
   useColorMode,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Container from './container';
 import LandingPage from './pages/landing-page/landing-page';
 
@@ -20,10 +20,12 @@ function App() {
   
   return (
     <Container>
-      <Box fontSize="xl">
-        <VStack spacing={8}>
+      <Box>
+        <Flex>
+        <VStack>
           <LandingPage/>
         </VStack>
+        </Flex>
       </Box>
     </Container>
   );

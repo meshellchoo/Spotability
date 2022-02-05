@@ -9,6 +9,7 @@ function Title()
     <VStack>
       <Flex direction="column" >
         <Box textAlign="left">
+        
         <Heading fontsize="4xl" fontWeight="bold" fontStyle="left">
           Spotability
         </Heading>
