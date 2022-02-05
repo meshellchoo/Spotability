@@ -11,19 +11,27 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from environ import Env
+import os
+
+# Setup Environment
+env = Env()
+env.read_env(env_file='server/.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+#)*hstp2(47*(!r341duzdt28+zka373@xl!_$ter%b_+(_ee'
-
+SECRET_KEY = env('DJANGO_SECRET_KEY')
+# SPOTIFY_API_KEY = env('STEAM_API_KEY')
+# DB_PASS = env('MONGODB_PASSWORD')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
