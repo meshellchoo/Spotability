@@ -4,14 +4,14 @@
 # Project Setup
 1. Clone this repo 
     ```sh
-     git clone https://github.com/ucr-cs180-fall21/cs180project-021-sea-cream-jasmine.git
+     git clone https://github.com/meshellchoo/HACKBU2022.git
     ``` 
 
 <a name="django-setup"></a>
 ## Django Setup
 1. cd into the project directory
 ```sh 
-cd cs180project-021-sea-cream-jasmine/ 
+cd HACKBU2022/ 
 ``` 
 2. create a virtual environment
 ```sh
