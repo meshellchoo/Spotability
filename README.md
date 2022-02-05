@@ -23,7 +23,7 @@ source env/bin/activate
 ```
 3b. For Linux, activate the virtual environment<br />
 ```sh
-\env\Scripts\activate.bat
+env\Scripts\activate.bat
 ```
 4. cd into the admin folder
 ```sh
