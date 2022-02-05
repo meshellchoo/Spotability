@@ -12,7 +12,8 @@ import {
 } from '@chakra-ui/react';
 
 
-const LoginPage = () => {
+function LoginPage () {
+  return (
   <VStack>
   <Box fontSize="xl">
     <Text>
@@ -20,6 +21,7 @@ const LoginPage = () => {
     </Text>
   </Box>
   </VStack>
+  )
 }
 
 export default LoginPage

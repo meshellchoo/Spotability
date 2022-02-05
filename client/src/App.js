@@ -7,12 +7,13 @@ import {
   VStack,
   Code,
   Grid,
-  theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
+
 import { extendTheme } from '@chakra-ui/react';
 import { Logo } from './Logo';
-import LoginPage from './login-page';
+import theme from './theme'
+import LoginPage from './pages/login-page';
 
 function App() {
   return (
@@ -34,9 +35,7 @@ function App() {
             >
               Learn Chakra
             </Link> */}
-            <Text>
-              Testring
-            </Text>
+            <LoginPage/>
           </VStack>
         </Grid>
       </Box>
