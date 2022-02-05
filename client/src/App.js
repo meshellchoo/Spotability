@@ -10,7 +10,9 @@ import {
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
+import { extendTheme } from '@chakra-ui/react';
 import { Logo } from './Logo';
+import LoginPage from './login-page';
 
 function App() {
   return (
@@ -19,11 +21,11 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
+            {/* <Logo h="40vmin" pointerEvents="none" />
             <Text>
               Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
+            </Text> */}
+            {/* <Link
               color="teal.500"
               href="https://chakra-ui.com"
               fontSize="2xl"
@@ -31,7 +33,10 @@ function App() {
               rel="noopener noreferrer"
             >
               Learn Chakra
-            </Link>
+            </Link> */}
+            <Text>
+              Testring
+            </Text>
           </VStack>
         </Grid>
       </Box>
