@@ -16,8 +16,6 @@ import Container from './container';
 import LandingPage from './pages/landing-page/landing-page';
 
 function App() {
-  
-  
   return (
     <Container>
       <Box>

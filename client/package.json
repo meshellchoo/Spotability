@@ -8,6 +8,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@fontsource/inter": "^4.5.3",
+    "@fontsource/lato": "^4.5.1",
     "@fontsource/roboto": "^4.5.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^10.4.9",
