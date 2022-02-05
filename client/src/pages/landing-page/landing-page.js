@@ -10,6 +10,7 @@ import {
   useColorMode,
   Grid,
   theme,
+  Image,
   Spacer,
   IconButton,
 } from '@chakra-ui/react';
@@ -17,8 +18,14 @@ import {
   SunIcon,
   MoonIcon, 
 } from '@chakra-ui/icons'
-import Title from './helper-components/title';
 
+
+// Components
+import Title from './helper-components/title';
+import LoginButton from './helper-components/button'
+
+// Assets
+// import footer-img from "./assets/landing-page-image.svg"
 
 function LandingPage () {
   const {colorMode, toggleColorMode} = useColorMode();
@@ -28,7 +35,23 @@ function LandingPage () {
       <Spacer/>
       <IconButton borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}></IconButton>
     </Box>
-    <Title/>
+    
+    <Box >
+      <Title/>
+    </Box>
+
+    <Box>
+      <Flex my="150px">
+        <LoginButton/>
+      </Flex>
+    </Box>
+
+    <Box>
+      <Image 
+      src="./landing-page-image.svg">
+      </Image>
+    </Box>
+    
   </VStack>
   )
 }
