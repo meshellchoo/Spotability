@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 
-function LoginPage () {
+function LandingPage () {
   return (
   <VStack>
   <Box fontSize="xl">
@@ -24,4 +24,4 @@ function LoginPage () {
   )
 }
 
-export default LoginPage
+export default LandingPage

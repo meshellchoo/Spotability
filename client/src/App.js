@@ -13,7 +13,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { extendTheme } from '@chakra-ui/react';
 import { Logo } from './Logo';
 import theme from './theme'
-import LoginPage from './pages/login-page';
+import LandingPage from './pages/landing-page';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
             >
               Learn Chakra
             </Link> */}
-            <LoginPage/>
+            <LandingPage/>
           </VStack>
         </Grid>
       </Box>
