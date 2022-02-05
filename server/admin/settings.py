@@ -30,6 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SPOTIFY_API_KEY = env('STEAM_API_KEY')
 # DB_PASS = env('MONGODB_PASSWORD')
+CLIENT_ID = env('SPOTIFY_CLIENT_ID')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
