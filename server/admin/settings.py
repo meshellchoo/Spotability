@@ -16,7 +16,7 @@ import os
 
 # Setup Environment
 env = Env()
-env.read_env(env_file='server/.env')
+env.read_env(env_file='admin/.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'server.urls'
+ROOT_URLCONF = 'admin.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'server.wsgi.application'
+WSGI_APPLICATION = 'admin.wsgi.application'
 
 
 # Database
