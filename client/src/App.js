@@ -13,7 +13,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { extendTheme } from '@chakra-ui/react';
 import { Logo } from './Logo';
 import theme from './theme'
-import LandingPage from './pages/landing-page';
+import LandingPage from './pages/landing-page/landing-page';
 
 function App() {
   return (
