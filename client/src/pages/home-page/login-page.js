@@ -11,22 +11,18 @@ import {
   theme,
 } from '@chakra-ui/react';
 
-//compoents
-import LoginButton from './helper-components/button'
 
-
-function LandingPage () {
-  return (
-  <VStack>
+function LoginPage () {
+  return(
+    <VStack>
   <Box fontSize="xl">
-    <Text>
+    <Text color='tomato'>
       Spotability
     </Text>
   </Box>
-
-  <LoginButton/>
   </VStack>
   )
+  
 }
 
-export default LandingPage
+export default LoginPage
