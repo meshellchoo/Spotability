@@ -17,9 +17,10 @@ import {
   SunIcon,
   MoonIcon, 
 } from '@chakra-ui/icons'
-import Title from './helper-components/title';
 
-//compoents
+
+// Components
+import Title from './helper-components/title';
 import LoginButton from './helper-components/button'
 
 
