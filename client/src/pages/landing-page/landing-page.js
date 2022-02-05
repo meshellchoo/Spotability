@@ -19,6 +19,9 @@ import {
 } from '@chakra-ui/icons'
 import Title from './helper-components/title';
 
+//compoents
+import LoginButton from './helper-components/button'
+
 
 function LandingPage () {
   const {colorMode, toggleColorMode} = useColorMode();
