@@ -41,6 +41,27 @@ class SpotabilityCollection(MongoConnection):
         else:
             print(cursor)
             return cursor
+
+# A database object that connect to the genre collection
+class GenreCollection(MongoConnection):
+    
+    def __init__(self):
+        super(GenreCollection, self).__init__()
+        self.get_collection('Genre')
+
+    def update_and_save(self, obj):
+        if self.collection.find_one({'genre': obj['genre']}) is not None and len(list(self.collection.find_one({'genre': obj['genre']}))):
+            self.collection.update_one({'genre':obj['genre']},{"$set":obj})
+        else:
+            self.collection.insert_one(obj)
+            
+    def test(self):
+        self.collection.insert_one({'email':123,'name':'test'})
+        
+    def remove(self, obj):
+        if self.collection.find({'email': obj.email}).count():
+            self.collection.delete_one({ "email": obj.email})
+
             
             
 def test(request):
@@ -76,3 +97,46 @@ def search_by_email(request):
         return JsonResponse(json.loads(dumps(user)),safe=False)
     else:
         return JsonResponse({"msg":"No such user."})
+
+
+def update_genre(genre, email):
+    genre_obj = GenreCollection()
+    
+    if(genre_obj.collection.find_one({'genre': genre}) is not None and len(list(genre_obj.collection.find_one({'genre': genre})))):
+        genre_map = {
+        "genre": genre,
+       	"email": [email],
+        }
+        genre_obj.update_and_save(genre_map)
+        
+    else:
+        cursor = genre_obj.collection.find_one({'genre': genre})
+        info = json.loads(dumps(cursor))
+        email_arr = info['email']
+        
+        if(email not in email_arr):
+            email_arr.appends(email)
+        
+        genre_map = {
+        "genre": genre,
+       	"email": email_arr,
+        }
+        genre_obj.update_and_save(genre_map)
+        
+    print("update " + genre)
+    
+
+def add_new_genre_by_user(request):
+    user_obj = SpotabilityCollection()   
+    
+    email = request.GET.get('email')
+    user = user_obj.search_by_email(email)
+    
+    info = json.loads(dumps(user))
+    genre = info['top_genres'][0:5]
+    
+    for g in genre:
+        update_genre(g, email)
+
+    return JsonResponse({"msg":genre})
+    
