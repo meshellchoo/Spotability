@@ -83,7 +83,7 @@ def spotify_callback(request, format=None):
     # if not response:
     #     return JsonResponse({'error': 'Spotify request failed!'}, status=response.status_code)
     # return JsonResponse(response, status=status.HTTP_200_OK)
-    return redirect("http://localhost:3000/spotability/redirect")
+    return redirect("http://localhost:3000/spotability/redirect/"+data["email"])
 
 
 
