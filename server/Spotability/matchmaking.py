@@ -63,7 +63,6 @@ def reject_match(request):
     """
     email = request.GET.get('email')
     rejected_match = request.GET.get('rejected_match')
-    print("email",email)
     user_obj = SpotabilityCollection()
     user = user_obj.search_by_email(rejected_match)
 
@@ -71,4 +70,11 @@ def reject_match(request):
     user_obj.update_and_save(user)
     return JsonResponse({"msg":"Successfully updated liked matches"})
 
-
+def get_your_mutuals(request):
+    """
+    query params: 'email'
+    """
+    email = request.GET.get('email')
+    user_obj = SpotabilityCollection()
+    user = user_obj.search_by_email(email)
+    return JsonResponse(user['mutual_swipes'])
