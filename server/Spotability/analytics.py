@@ -37,7 +37,33 @@ def get_top_track_from_top_genre(request):
 
     return JsonResponse(output)
 
+def get_top_artist_from_user(request):
+    email = request.GET.get('email')
+    obj = SpotabilityCollection()
+    user = obj.search_by_email(email)
+    
+    URL = 'https://api.spotify.com/v1/me/top/artists'
+    params = {"limit":1,}
+    token = "Bearer " + user['access_token']
+    headers={'Authorization': token}
+    response = requests.get(URL,headers=headers,params=params)
+    data = response.json()
+    
+    # artist = data['items'][0]['artists'][0]['name']
+    name = data['items'][0]['name']
+    # images = data['items'][0]['name']
+    # images = data['items'][0]['href']['images'][0]['url']
+    
+    # print("image: ", images)
+    
+    # output = {"name":name, "artist": artist, "images":images}
+
+    return JsonResponse({"meg":"no bug"})
+
+
 # ex: https://api.spotify.com/v1/recommendations?seed_genres=classical,country 
+
+
 def get_recommended_track(request):
     """
     query params: 'email' 
