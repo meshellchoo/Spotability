@@ -29,12 +29,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('DJANGO_SECRET_KEY')
-# SPOTIFY_API_KEY = env('STEAM_API_KEY')
 # DB_PASS = env('MONGODB_PASSWORD')
 CLIENT_ID = env('SPOTIFY_CLIENT_ID')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
+CLIENT_ID = env('SPOTIFY_CLIENT_ID')
+CLIENT_SECRET = env('SPOTIFY_SECRET')
+REDIRECT_URI = env('REDIRECT_URI')
+MONGODB_URL = env('MONGODB_URL')
 ALLOWED_HOSTS = []
 
 
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Spotability',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -82,16 +86,12 @@ WSGI_APPLICATION = 'admin.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-client = pymongo.MongoClient(env('MONGODB_URL'))
-db_handle = client.test
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.dummy',
+        'NAME': 'mydatabase',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

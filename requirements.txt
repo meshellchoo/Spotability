@@ -2,4 +2,7 @@ asgiref==3.4.1
 autopep8==1.6.0
 Django==3.2.9
 django-environ==0.8.1
+djangorestframework==3.13.1
+pymongo==4.0.1
+requests==2.27.1
 virtualenv==20.10.0
