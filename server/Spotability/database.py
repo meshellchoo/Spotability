@@ -53,7 +53,8 @@ class GenreCollection(MongoConnection):
             cursor = self.collection.find_one({'genre': genre})
             old_genre_obj = json.loads(dumps(cursor))
             genre_obj={'genre':genre, 'email':old_genre_obj['email']}
-            genre_obj['email'].append(email)
+            if email not in genre_obj['email']:
+                genre_obj['email'].append(email)
             self.collection.update_one({'genre':genre},{"$set":genre_obj}) 
         else:
             self.collection.insert_one({'genre':genre,'email':[email]})
@@ -94,32 +95,3 @@ def search_by_email(request):
         return JsonResponse(json.loads(dumps(user)),safe=False)
     else:
         return JsonResponse({"msg":"No such user."})
-
-
-# Genre Collection Views
-def update_genre(genre, email):
-    genre_obj = GenreCollection()
-    
-    if(genre_obj.collection.find_one({'genre': genre}) is not None and len(list(genre_obj.collection.find_one({'genre': genre})))):
-        genre_map = {
-            "genre": genre,
-            "email": [email],
-        }
-        genre_obj.update_and_save(genre_map)
-        
-    else:
-        cursor = genre_obj.collection.find_one({'genre': genre})
-        info = json.loads(dumps(cursor))
-        email_arr = info['email']
-        
-        if(email not in email_arr):
-            email_arr.appends(email)
-        genre_map = {
-            "genre": genre,
-            "email": email_arr,
-        }
-        genre_obj.update_and_save(genre_map)
-        
-    print("update " + genre)
-    
-    
