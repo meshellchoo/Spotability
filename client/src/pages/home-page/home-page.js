@@ -12,10 +12,12 @@ import {
   Center,
   Button,
   Text,
+  HStack,
 } from '@chakra-ui/react';
 import {
   SunIcon,
-  MoonIcon, 
+  MoonIcon,
+  EmailIcon, 
 } from '@chakra-ui/icons'
 
 
@@ -29,7 +31,15 @@ import axios from "axios";
 import HomePageTitle from "./helper-components/home-title"
 
 import FactsBox from './helper-components/home-factsBox';
+
+
+import Like from './helper-components/likeButton';
+
+import Dislike from './helper-components/dislikeButton';
+
+
 import ReturnMatchedPerson from './helper-components/match_details';
+
 import {
     useEffect
   } from 'react';
@@ -74,7 +84,18 @@ function HomePage (auth) {
         </Center>
 
       </VStack>
+
+      
+      
+      <Like/>
+
+      <Dislike/>
+      
+
+
     </Container>
+
+    
     
   )
 }
