@@ -65,6 +65,8 @@ function FactsBox ()
 
     const [thirdRec, setThirdRec] = useState("");
 
+    const [thirdImg, setThirdImag] = useState("");
+
 
 
     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
@@ -92,7 +94,8 @@ function FactsBox ()
       axios.get("http://localhost:8000/spotability/top_track?email=candywithonon@ymail.com").then((response) => {
         
         setThirdRec(response.data["name"])
-        
+
+        setThirdImag(response.data["images"])
       });
 
       
@@ -118,6 +121,7 @@ function FactsBox ()
                     </Center>
                     </WrapItem>
                 <WrapItem>
+                
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
                             You love:  {thirdRec}
