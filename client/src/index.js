@@ -22,7 +22,6 @@ ReactDOM.render(
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* <Route path="/user/:accessToken/:refreshToken" component={<HomePage/>} /> */}
         <Route path="/spotability/redirect" element={<App />} />
       </Routes>  
     </BrowserRouter>

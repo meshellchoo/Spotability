@@ -17,6 +17,12 @@ import {
   MoonIcon, 
 } from '@chakra-ui/icons'
 
+
+
+// Components
+import Container from '../../container';
+import MatchCard from './helper-components/match_card';
+
 import axios from "axios";
 
 import {
@@ -36,19 +42,32 @@ function HomePage () {
       });
 
   return (
-    <VStack >
-        <Box my={10}>
-            <IconButton 
-              size="lg" 
-              colorScheme={colorMode ==='dark'? "pink" : "none"} 
-              variant={colorMode === 'dark' ? "solid" : "outline"} 
-              shadow="md" borderRadius="full" 
-              onClick={toggleColorMode} 
-              icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>} 
-              border='2px'>
-            </IconButton>
-          </Box>
-
+    <Container>
+      <VStack>
+        <Box my={10} p={2}>
+          <IconButton 
+            size="lg" 
+            colorScheme={colorMode ==='dark'? "pink" : "none"} 
+            variant={colorMode === 'dark' ? "solid" : "outline"} 
+            shadow="md" borderRadius="full" 
+            onClick={toggleColorMode} 
+            icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>} 
+            border='2px'>
+          </IconButton>
+        </Box>
+        <Flex>
+        <Box>
+          <Text> Temporary Header </Text>
+        </Box>
+        </Flex>
+        
+        <Flex>
+        <Box>
+          <MatchCard/>
+        </Box>
+        </Flex>
+        
+{/* 
         <Flex direction="column">
             <Box>
             <Image src={userImage} boxSize='200px'></Image>
@@ -136,11 +155,12 @@ function HomePage () {
                         </Center>
                 </WrapItem>
             </Wrap>
-            
+             */}
 
 
-        </Flex>
+        {/* </Flex> */}
     </VStack>
+    </Container>
   )
 }
 
