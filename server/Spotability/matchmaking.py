@@ -6,14 +6,12 @@ import json
 import random
 from bson.json_util import dumps
 from Spotability.database import SpotabilityCollection, GenreCollection
-"""
-    "people_who_swiped_you": {},
-    "people_who_you_swiped": {},
-    "mutual_swipes": {} ,
-    "previously_seen": {},
-"""
+
 
 def get_a_match(request):
+    """
+    query params: 'email' 
+    """
     email = request.GET.get('email')
     user_obj = SpotabilityCollection()
     user = user_obj.search_by_email(email)
@@ -44,6 +42,9 @@ def generate_random_match(user):
     return match,user['top_genres'][0]
 
 def like_match(request):
+    """
+    query params: 'email' ,'liked_match' 
+    """
     email = request.GET.get('email')
     liked_match = request.GET.get('liked_match')
     
@@ -58,6 +59,9 @@ def like_match(request):
     return JsonResponse({"msg":"Successfully updated liked matches"})
 
 def reject_match(request):
+    """
+    query params: 'email', 'rejected_match' 
+    """
     email = request.GET.get('email')
     rejected_match = request.GET.get('rejected_match')
     print("email",email)
