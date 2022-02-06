@@ -28,3 +28,4 @@ def get_user_info(auth_token):
     data = response.json()
     print("Data:",data)
     return data
+
