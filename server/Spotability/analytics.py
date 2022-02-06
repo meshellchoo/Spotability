@@ -28,12 +28,19 @@ def get_recommended_track(request):
     email = request.GET.get('email')
     obj = SpotabilityCollection()
     user = obj.search_by_email(email)
-    least_five_genres= user["top_genres"][-6:-1]
-    print(least_five_genres)
+    # least_genre = user["top_genres"][3]
     URL = '	https://api.spotify.com/v1/recommendations'
     token = "Bearer " + user['access_token']
     headers={'Authorization': token}
-    params={'seed_genres':least_five_genres}
+    random_genres = requests.get('https://api.spotify.com/v1/recommendations/available-genre-seeds',headers=headers).json()['genres']
+    random_genre = random_genres[random.randint(0,len(random_genres)-1)]
+    params={'seed_genres':random_genre}
     response = requests.get(URL,headers=headers,params=params)
     data = response.json()
-    return data
+    track = data['tracks'][0]
+    track_info = {
+        "title" : track['name'],
+        "img_url" : track['album']['images'][-1]["url"],
+        "artist" : track['artists'][0]['name']
+    }
+    return JsonResponse(track_info)
