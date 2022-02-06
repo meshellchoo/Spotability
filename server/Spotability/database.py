@@ -26,7 +26,7 @@ class SpotabilityCollection(MongoConnection):
             self.collection.update_one({ "email":obj['email']},{"$set":obj})
         else:
             self.collection.insert_one(obj)
-            
+
     def test(self):
         self.collection.insert_one({'email':123,'name':'test'})
         
@@ -39,33 +39,53 @@ class SpotabilityCollection(MongoConnection):
         if cursor is None or len(list(cursor)) == 0:
             return None
         else:
-            print(cursor)
             return cursor
+
+# A database object that connect to the genre collection
+class GenreCollection(MongoConnection):
+    
+    def __init__(self):
+        super(GenreCollection, self).__init__()
+        self.get_collection('Genre')
+
+    def update_and_save(self, genre, email):
+        if self.collection.find_one({'genre': genre}) is not None and len(list(self.collection.find_one({'genre': genre}))):
+            cursor = self.collection.find_one({'genre': genre})
+            old_genre_obj = json.loads(dumps(cursor))
+            genre_obj={'genre':genre, 'email':old_genre_obj['email']}
+            if email not in genre_obj['email']:
+                genre_obj['email'].append(email)
+            self.collection.update_one({'genre':genre},{"$set":genre_obj}) 
+        else:
+            self.collection.insert_one({'genre':genre,'email':[email]})
             
+    def test(self):
+        self.collection.insert_one({'email':123,'name':'test'})
+        
+    def remove(self, obj):
+        if self.collection.find({'email': obj.email}).count():
+            self.collection.delete_one({ "email": obj.email})
             
+    def get_all_matches_in_genre(self,genre):
+        return self.collection.find_one({'genre': genre})
+
+
+            
+# User Collection Views
 def test(request):
     obj = SpotabilityCollection()
     obj.test()
     return JsonResponse({'msg':"Added successfully"})
 
-# def get_user_from_request(request):
-#     user_map ={
-#         "_id": request.GET.get('refresh')  ,
-#         "first_name": request.GET.get('first_name'),
-#         "last_name": request.GET.get('last_name'),
-#         "country":request.GET.get('country'),
-#         "gender":request.GET.get('gender'),
-#         "bio":request.GET.get('bio'),
-#         "created_at":request.GET.get('created_at'),
-#         "refresh_token":request.GET.get('refresh_token'),
-#         "expires_in":request.GET.get('expires_in'),
-#         "token_type":request.GET.get('token_type'),
-#     }
-#     return user_map
-
 def add_new_user(user_map):
     obj = SpotabilityCollection()
-    obj.update_and_save(user_map)
+    obj.update_and_save(user_map)  
+    
+    email = user_map['email']
+    genre = user_map['top_genres'][0:5]
+    obj = GenreCollection()
+    for g in genre:
+        obj.update_and_save(g, email)
     return JsonResponse({'msg':"Added successfully"})
 
 def search_by_email(request):
