@@ -24,6 +24,8 @@ import {SmallCloseIcon} from "@chakra-ui/icons"
 
 import Container from '../../../container';
 
+import App from "../../../App"
+
 function Card(props)
 {
   const {variant, children,  ...rest} = props
@@ -46,7 +48,7 @@ export default function MatchCard()
   // setUserEmail("candywithonon@ymail.com");
   const userEmail = "candywithonon@ymail.com"
   
-  axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
+  axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + App.email).then((response) => {
         setUserData(response.data);
         
         // console.log(userData);

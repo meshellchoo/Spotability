@@ -21,6 +21,7 @@ import {
 
 import axios from "axios";
 import delayAdapterEnhancer from 'axios-delay';
+import App from "../../../App"
 
 // function Rec()
 // {
@@ -48,7 +49,7 @@ function FactsBox ()
 {
 
     
-
+    
     const {colorMode, toggleColorMode} = useColorMode();
 
     const [userTopGenres, setUserTopGenres] = useState("");
@@ -57,7 +58,7 @@ function FactsBox ()
 
     const [userRecTrack, setUserRecTrack] = useState("");
 
-    const [recArtist, setRecArtist] = useState("");
+    const [FavArtist, setFavArtist] = useState("");
 
     const [recTrack, setRecTrack] = useState("");
 
@@ -69,7 +70,7 @@ function FactsBox ()
 
 
 
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
+    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + App.email).then((response) => {
         
         
         setUserTopGenres(response.data["top_genres"]);
@@ -80,20 +81,21 @@ function FactsBox ()
         }
       });
 
-      axios.get("http://127.0.0.1:8000/spotability/get_recommended_track?email=candywithonon@ymail.com").then((response) => {
+      axios.get("http://127.0.0.1:8000/spotability/top_artist?email=" + App.email).then((response) => {
         
-        setRecArtist(response.data["artist"]);
-        setRecTrack(response.data["title"]);
-        setRecImage(response.data["img_url"]);
+        setFavArtist(response.data["name"]);
+       
 
-        console.log(userRecTrack);
+
         
         
       });
 
-      axios.get("http://localhost:8000/spotability/top_track?email=candywithonon@ymail.com").then((response) => {
+      axios.get("http://localhost:8000/spotability/top_track?email=" + App.email).then((response) => {
         
         setThirdRec(response.data["name"])
+
+        console.log(thirdRec)
 
         setThirdImag(response.data["images"])
       });
@@ -116,7 +118,7 @@ function FactsBox ()
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            You favorite artist: {recTrack}
+                            You favorite artist: {FavArtist}
                         </Text>    
                     </Center>
                     </WrapItem>
