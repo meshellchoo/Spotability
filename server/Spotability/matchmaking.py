@@ -33,11 +33,14 @@ def generate_random_match(user):
     genre_obj = GenreCollection()
     potential_matches = genre_obj.get_all_matches_in_genre(user['top_genres'][0])
     rand = random.randint(0,len(potential_matches)-1)
-    match = potential_matches[rand]
+    print("potential_matches",potential_matches['email'])
+    match = potential_matches['email'][1]
     while (match == user["email"] or match in user["previously_seen"]) and counter < len(potential_matches): 
         rand = random.randint(0,len(potential_matches)-1)
         match = potential_matches[rand]
         counter += 1
+        
+    # json.loads(dumps(user)
     return match,user['top_genres'][0]
 
 def like_match(request):
@@ -47,21 +50,22 @@ def like_match(request):
     user_obj = SpotabilityCollection()
     user = user_obj.search_by_email(email)
     user['people_who_you_swiped'][liked_match] = liked_match
-
+    user_obj.update_and_save(user)
+    
     user = user_obj.search_by_email(liked_match)
     user['people_who_swiped_you'][email] = email
-    
+    user_obj.update_and_save(user)
     return JsonResponse({"msg":"Successfully updated liked matches"})
 
 def reject_match(request):
     email = request.GET.get('email')
     rejected_match = request.GET.get('rejected_match')
-    
+    print("email",email)
     user_obj = SpotabilityCollection()
-
     user = user_obj.search_by_email(rejected_match)
+
     user['previously_seen'][email] = email
-    
+    user_obj.update_and_save(user)
     return JsonResponse({"msg":"Successfully updated liked matches"})
 
 

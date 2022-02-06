@@ -66,8 +66,9 @@ class GenreCollection(MongoConnection):
         if self.collection.find({'email': obj.email}).count():
             self.collection.delete_one({ "email": obj.email})
             
-    def get_all_matches_in_genre(genre):
-        pass
+    def get_all_matches_in_genre(self,genre):
+        return self.collection.find_one({'genre': genre})
+
 
             
 # User Collection Views
