@@ -1,5 +1,7 @@
 # HACKBU2022
 
+> Authors: [Xin Wang](https://github.com/xinwng) [Michelle Chu](https://github.com/meshellchoo) [Yuteng Wu](https://github.com/YTTWu) [Jeng-Rung Tu](https://github.com/JengRung)
+
 <a name="project-setup"></a>
 # Project Setup
 1. Clone this repo 
@@ -25,13 +27,13 @@ source env/bin/activate
 ```sh
 env\Scripts\activate.bat
 ```
-4. cd into the admin folder
-```sh
-cd admin/
-```
-5. install all the dependencies 
+4. install all the dependencies 
 ```sh
 pip3 install -r requirements.txt
+```
+5. cd into the admin folder
+```sh
+cd admin/
 ```
 6. run the server
 ```sh
@@ -41,7 +43,7 @@ python manage.py runserver
 
 
 <a name="react-setup"></a>
-## React Setup (React must be running on another port)
+## React Setup (React must be running on another terminal)
 1. cd into the React folder on a separate terminal
 ```sh 
 cd react-app/ 
