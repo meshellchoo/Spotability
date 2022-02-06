@@ -48,11 +48,15 @@ class GenreCollection(MongoConnection):
         super(GenreCollection, self).__init__()
         self.get_collection('Genre')
 
-    def update_and_save(self, obj):
-        if self.collection.find_one({'genre': obj['genre']}) is not None and len(list(self.collection.find_one({'genre': obj['genre']}))):
-            self.collection.update_one({'genre':obj['genre']},{"$set":obj})
+    def update_and_save(self, genre, email):
+        if self.collection.find_one({'genre': genre}) is not None and len(list(self.collection.find_one({'genre': genre}))):
+            cursor = self.collection.find_one({'genre': genre})
+            old_genre_obj = json.loads(dumps(cursor))
+            genre_obj={'genre':genre, 'email':old_genre_obj['email']}
+            genre_obj['email'].append(email)
+            self.collection.update_one({'genre':genre},{"$set":genre_obj}) 
         else:
-            self.collection.insert_one(obj)
+            self.collection.insert_one({'genre':genre,'email':[email]})
             
     def test(self):
         self.collection.insert_one({'email':123,'name':'test'})
@@ -60,9 +64,12 @@ class GenreCollection(MongoConnection):
     def remove(self, obj):
         if self.collection.find({'email': obj.email}).count():
             self.collection.delete_one({ "email": obj.email})
+            
+    def get_all_matches_in_genre(genre):
+        pass
 
             
-
+# User Collection Views
 def test(request):
     obj = SpotabilityCollection()
     obj.test()
@@ -70,7 +77,13 @@ def test(request):
 
 def add_new_user(user_map):
     obj = SpotabilityCollection()
-    obj.update_and_save(user_map)    
+    obj.update_and_save(user_map)  
+    
+    email = user_map['email']
+    genre = user_map['top_genres'][0:5]
+    obj = GenreCollection()
+    for g in genre:
+        obj.update_and_save(g, email)
     return JsonResponse({'msg':"Added successfully"})
 
 def search_by_email(request):
@@ -83,13 +96,14 @@ def search_by_email(request):
         return JsonResponse({"msg":"No such user."})
 
 
+# Genre Collection Views
 def update_genre(genre, email):
     genre_obj = GenreCollection()
     
     if(genre_obj.collection.find_one({'genre': genre}) is not None and len(list(genre_obj.collection.find_one({'genre': genre})))):
         genre_map = {
-        "genre": genre,
-       	"email": [email],
+            "genre": genre,
+            "email": [email],
         }
         genre_obj.update_and_save(genre_map)
         
@@ -100,28 +114,12 @@ def update_genre(genre, email):
         
         if(email not in email_arr):
             email_arr.appends(email)
-        
         genre_map = {
-        "genre": genre,
-       	"email": email_arr,
+            "genre": genre,
+            "email": email_arr,
         }
         genre_obj.update_and_save(genre_map)
         
     print("update " + genre)
     
-
-def add_new_genre_by_user(request):
-    user_obj = SpotabilityCollection()   
-    
-    email = request.GET.get('email')
-    user = user_obj.search_by_email(email)
-    
-    info = json.loads(dumps(user))
-    genre = info['top_genres'][0:5]
-    
-    for g in genre:
-        update_genre(g, email)
-
-    return JsonResponse({"msg":genre})
-
     

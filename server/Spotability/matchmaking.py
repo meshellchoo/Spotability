@@ -25,7 +25,7 @@ def get_a_match(request):
     user_obj.update_and_save(user)
     
     user = user_obj.search_by_email(match)
-    return JsonResponse({"match":(json.loads(dumps(user))),"overlapping_genre":genre}))
+    return JsonResponse({"match":(json.loads(dumps(user))),"overlapping_genre":genre})
 
 
 def generate_random_match(user):
