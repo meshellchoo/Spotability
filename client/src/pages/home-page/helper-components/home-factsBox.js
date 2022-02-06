@@ -85,12 +85,7 @@ function FactsBox ()
       });
 
       axios.get("http://127.0.0.1:8000/spotability/top_artist?email=" + App.email).then((response) => {
-        
         setFavArtist(response.data["name"]);
-       
-
-
-        
         
       });
 
