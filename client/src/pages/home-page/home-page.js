@@ -24,16 +24,11 @@ import {
   } from 'react';
 
 function HomePage () {
-
   const {colorMode, toggleColorMode} = useColorMode();
-
   const [userData, setUserData] = useState("");
-
   const [userImage, setUserImage] = useState("");
-
-
-
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
+    
+  axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
         setUserData(response.data);
         //console.log(userData);
         
@@ -46,30 +41,25 @@ function HomePage () {
 
     
 
-
-
   return (
 
     <VStack >
         <Box my={10}>
-        <IconButton 
-        size="lg" 
-        colorScheme={colorMode ==='dark'? "pink" : "none"} 
-        variant={colorMode === 'dark' ? "solid" : "outline"} 
-        shadow="md" borderRadius="full" 
-        onClick={toggleColorMode} 
-        icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>} 
-        border='2px'>
-            
-        </IconButton>
-        </Box>
+            <IconButton 
+            size="lg" 
+            colorScheme={colorMode ==='dark'? "pink" : "none"} 
+            variant={colorMode === 'dark' ? "solid" : "outline"} 
+            shadow="md" borderRadius="full" 
+            onClick={toggleColorMode} 
+            icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>} 
+            border='2px'>
+            </IconButton>
+          </Box>
 
         <Flex direction="column">
             <Box>
             <Image src={userImage} boxSize='200px'></Image>
             </Box>
-
-
             <Box>
                 <Heading fontSize="4xl" fontWeight="700" fontStyle="bold" >
                 Interesting Facts About Yourself
