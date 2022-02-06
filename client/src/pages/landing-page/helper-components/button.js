@@ -22,6 +22,13 @@ import LoopObject from "./animation"
 
 const baseURL = "http://127.0.0.1:8000/api/";
 
+
+/*
+testing
+*/
+//import LandingPage from "../../home-page/home-page"
+
+
 function LoginButton () {
     const {colorMode, toggleColorMode} = useColorMode();
 
@@ -31,6 +38,7 @@ function LoginButton () {
     const handleClick = () => {
         axios.get(baseURL).then((response) => {
           });
+          
     }
 
     return(

@@ -37,13 +37,7 @@ function LoopObject() {
 export default LoopObject
 
 
-// style={{
-//     width: 80,
-//     height: 80,
-//     backgroundColor: '#46e891',
-//     borderRadius: 16,
-//     ...styles,
+
   
   
   
-//   }}
