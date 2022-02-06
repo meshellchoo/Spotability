@@ -6,7 +6,8 @@ from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
-from Spotability.data_collection import get_top_genres
+from Spotability.data_collection import get_top_genres, get_user_info
+from Spotability.database import add_new_user
 # from .util import get_user_tokens, is_spotify_authenticated, update_or_create_user_tokens
 
 # class AuthURL(APIView):
@@ -46,16 +47,31 @@ def spotify_callback(request, format=None):
         'client_secret': CLIENT_SECRET,
     }).json()
     print("response",response)
+    
     access_token = response.get('access_token')
     token_type = response.get('token_type')
     refresh_token = response.get('refresh_token')
     expires_in = response.get('expires_in')
     error = response.get('error')
-
+    
+    data = get_user_info(access_token)
+    top_genres = get_top_genres(access_token)
+    user_map ={
+            "email": data["email"] ,
+            "display_name" : data["display_name"],
+            "country": data["country"],
+            "gender": "",
+            "img_url": data["images"][0]["url"],
+            "refresh_token":refresh_token,
+            "expires_in":expires_in,
+            "token_type":token_type,
+            "top_genres":top_genres,
+    }
+    
     # save data to database here
+    add_new_user(user_map)
     
     
-    data = get_top_genres(access_token)
     
     
     
