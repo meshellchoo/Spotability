@@ -23,7 +23,7 @@ env.read_env(env_file='admin/.env')
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
+CORS_ORIGIN_ALLOW_ALL = True
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -37,7 +37,7 @@ CLIENT_ID = env('SPOTIFY_CLIENT_ID')
 CLIENT_SECRET = env('SPOTIFY_SECRET')
 REDIRECT_URI = env('REDIRECT_URI')
 MONGODB_URL = env('MONGODB_URL')
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -51,11 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Spotability',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

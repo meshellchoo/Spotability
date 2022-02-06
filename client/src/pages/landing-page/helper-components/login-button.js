@@ -26,23 +26,34 @@ testing
 //import LandingPage from "../../home-page/home-page"
 
 
-function LoginButton () {
+function LoginButton (link) {
     const {colorMode, toggleColorMode} = useColorMode();
     const [desktopQuery] = useMediaQuery("(min-width: 700px)");
     const [isDesktop, setIsDesktop] = useState(false);
-  
+    const [spotifyAuthLink, setSpotifyAuthLink] = useState("");
+    
+    setSpotifyAuthLink(link);
+    console.log(spotifyAuthLink);
+    
     useEffect(() => {
       if(desktopQuery !== isDesktop){
         setIsDesktop(desktopQuery);
       }
-    }, [isDesktop, desktopQuery])
+    }, [isDesktop, desktopQuery]) 
 
-    // const handleClick = () => {
-    //     axios.get(baseURL).then((response) => {
-    //       });
-          
-    // }
-
+    useEffect(() => {
+      async function retrieve_data() {
+        const backend_url = "http://127.0.0.1:8000/";
+        const { data } = await axios.get(`${backend_url}`, {
+        });
+        console.log(data);
+        if (data) {
+          setSpotifyAuthLink(data.url);
+        }
+      }
+      retrieve_data();
+    }, [spotifyAuthLink,setSpotifyAuthLink]);
+  
     return(
         <VStack>
           <Center>
@@ -61,7 +72,7 @@ function LoginButton () {
                 </Flex>
                 <Box >
                   <Button 
-                    as="a"
+                    onClick={spotifyAuthLink}
                     _hover={{ bg: '#86f29a' }}  
                     size={isDesktop === true ? 'lg': 'md'}
                     shadow='lg'
@@ -78,8 +89,7 @@ function LoginButton () {
 
 
     )
-
-}
-
+    }
+  
 
 export default LoginButton

@@ -11,16 +11,38 @@ import {
   SunIcon,
   MoonIcon, 
 } from '@chakra-ui/icons'
+import {
+  useState, useEffect
+} from 'react';
 
 // Components
 import Container from '../../container';
 import Title from './helper-components/title';
 import LoginButton from './helper-components/login-button';
+import axios from "axios";
 
 function LandingPage () {
   const {colorMode, toggleColorMode} = useColorMode();
+  const [spotifyAuthLink, setSpotifyAuthLink] = useState("");
+  
+  
+  // useEffect(() => {
+  //   async function retrieve_data() {
+  //     const backend_url = "http://127.0.0.1:8000/";
+  //     const { data } = await axios.get(`${backend_url}`, {
+  //     });
+  //     console.log(data);
+  //     if (data) {
+  //       setSpotifyAuthLink(data.url);
+  //     }
+  //   }
+  //   retrieve_data();
+  // }, [spotifyAuthLink,setSpotifyAuthLink]);
+
+
   return (
     <Container>
+      
       <VStack>
         <Box my={10} p={2}>
           <IconButton 
@@ -40,7 +62,7 @@ function LandingPage () {
 
         <Box>
           <Flex my="110px">
-            <LoginButton/>
+            <LoginButton link={spotifyAuthLink}/>
           </Flex>
         </Box>
 

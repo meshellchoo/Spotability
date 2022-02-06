@@ -18,13 +18,11 @@ class SpotabilityCollection(MongoConnection):
         self.get_collection('User')
 
     def update_and_save(self, obj):
-        # if self.collection.find({'email': obj.email}).count():
-        #     self.collection.update({ "email": obj.email},obj)
-        # else:
-        print("obj",obj)
-        print("done")
-        self.collection.insert_one(obj)
-
+        if self.collection.find({'email': obj['email']}):
+            self.collection.update({ "email":obj['email']},obj)
+        else:
+            self.collection.insert_one(obj)
+            
     def test(self):
         self.collection.insert_one({'email':123,'name':'test'})
         
