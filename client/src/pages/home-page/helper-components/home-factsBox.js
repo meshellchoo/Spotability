@@ -113,14 +113,14 @@ function FactsBox ()
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            You love:  {thirdRec}
+                            You favorite artist: {recTrack}
                         </Text>    
                     </Center>
                     </WrapItem>
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            Recommended track from {userFavoriteGenre}: {recTrack}
+                            You love:  {thirdRec}
                         </Text>    
                     </Center>
                 </WrapItem>
