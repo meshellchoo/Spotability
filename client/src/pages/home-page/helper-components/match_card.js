@@ -22,6 +22,8 @@ import axios from "axios";
 
 import {SmallCloseIcon} from "@chakra-ui/icons"
 
+import Container from '../../../container';
+
 function Card(props)
 {
   const {variant, children,  ...rest} = props
@@ -34,7 +36,7 @@ export default function MatchCard()
 {
   // const [userEmail, setUserEmail] = useState("")
   const [matchButtonClick, setMatchButtonClick] = useState(false);
-  const [cancelButtonClick, setCancelButtonClick] = useState(false);
+  const [cancelButtonClick, setCancelButtonClick] = useState(true);
   const [userData, setUserData] = useState("");
   const [userName, setUserName] = useState("");
   const [userImage, setUserImage] = useState("");
@@ -50,6 +52,7 @@ export default function MatchCard()
         // console.log(userData);
         setUserName(userData["display_name"])
         setUserImage(userData["img_url"])
+        setUserCountry(userData["country"])
         // console.log(userData["top_genres"])
   });
 
@@ -61,45 +64,46 @@ export default function MatchCard()
 
   function handleCancelButtonClick()
   {
-    setCancelButtonClick(false);
+    setCancelButtonClick(true);
     setMatchButtonClick(false);
   }
 
-
   return (
+    <Flex direction="column" >
       <VStack>
         <Center>
-        <Stack>
         <Box
-          width="350px"
-          height="600px"
+          // width="310px"
+          // height="450px"
+          p={10}
           rounded="20px"
-          overflow="hidden"
+          overflow="hidden"  
           shadow="lg"
           bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
-          <VStack>
             <Flex alignItems="center">
               <VStack>
                 <Box mt={5}>
                   <Image 
-                  mt={5}
-                  src='https://chakra-ui.com/eric.jpg'
-                  // src={userImage}
-                  rounded='full'
-                  w={32}
-                  h={32}
-                  boxShadow='md'>
+                    mt={5}
+                    src={userImage ? userImage: "none"}
+                    // src={userImage}
+                    rounded='full'
+                    w={32}
+                    h={32}
+                    boxShadow='md'>
                   </Image>
                   </Box>
                   <Text fontSize="3xl" fontWeight="medium" color="black">
                     {userName}
                   </Text>
                   <Text fontSize="xl" fontWeight="small" color="black">
-                    Location
+                    {userCountry}
                   </Text>
-                  <Box>
+                  
+                  <Box
+                  position="relative">
                     <Button
-                      my={10}
+                      mt={5}
                       // spinner={<BeatLoader size={8} color='white' />}
                       onClick={handleMatchButtonClick}
                       isLoading={matchButtonClick ? true: false}
@@ -117,8 +121,10 @@ export default function MatchCard()
                     <Box>
                     <IconButton
                       // spinner={<BeatLoader size={8} color='white' />}
-                      mt={10}
+                      my={5}
                       borderRadius="full"
+                      aria-label='Cancel'
+                      // display={cancelButtonClick ? false: true}
                       variant={colorMode ==='dark'? "solid" : "outline"} 
                       colorScheme={colorMode ==='dark'? "pink" : "none"} 
                       onClick={handleCancelButtonClick}
@@ -129,13 +135,9 @@ export default function MatchCard()
                   </Box>
               </VStack>
             </Flex>
-        </VStack>
-          
-        
-        
         </Box>
-        </Stack>
-      </Center>
+        </Center>
       </VStack>
+      </Flex>
   )
   }  
