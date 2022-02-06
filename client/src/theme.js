@@ -5,6 +5,7 @@ import { createBreakpoints } from '@chakra-ui/theme-tools'
 import "@fontsource/inter"
 import "@fontsource/roboto"
 import "@fontsource/lato"
+import "@fontsource/josefin-sans"
 
 // const additional_colors = {
 //     colors: {
@@ -26,7 +27,7 @@ const styles = {
     body: {
       bg: mode('#fec5bb', '#121212')(props),
       color: mode('#121212', '#fec5bb')(props),
-      fontSize: '18px'
+      fontSize: '16px'
     },
   })
 }
@@ -35,7 +36,7 @@ const theme = extendTheme({
   config,
   styles,
   fonts : {
-    heading: "Inter",
+    heading: "Josefin Sans",
     body: "Inter"
   },
   fontWeights: {
