@@ -9,8 +9,11 @@ import {
   Heading,
   Wrap,
   WrapItem,
+  HStack,
   Center,
+  Avatar,
   Button,
+  Img,
   Text,
   useStyleConfig,
 } from '@chakra-ui/react';
@@ -32,6 +35,7 @@ export default function MatchCard()
   // const [userEmail, setUserEmail] = useState("")
   const [matchButtonClick, setMatchButtonClick] = useState(false);
   const [cancelButtonClick, setCancelButtonClick] = useState(true);
+  
   const [userData, setUserData] = useState("");
   const [userName, setUserName] = useState("");
   const [userImage, setUserImage] = useState("");
@@ -42,22 +46,13 @@ export default function MatchCard()
   const [matchedName, setMatchedName] = useState("");
   const [matchedImage, setMatchedImage] = useState("");
   const [matchedCountry, setMatchedCountry] = useState("");
-  
-  // setUserEmail("candywithonon@ymail.com");
-  const userEmail = "candywithonon@ymail.com"
+  const [matchedEmail, setMatchedEmail] = useState("");
+  const [foundMatch, setFoundMatch] = useState(false);
 
-  // useEffect(() => {
-  //   async function handle_user_data()
-  //   {
-  //     await axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
-      
-  //   },
-  // });
-  // if(response.data)
-  // {
-  //   handleUserData(response.data);
-  // }
-  // }, []);
+
+  const [matchedPeople, setMatchedPeople] = useState([]);
+  // const userEmail = "candywithonon@ymail.com"
+  const userEmail = "jengrung2255@gmail.com";
 
   useEffect(() => {
     async function handle_user_data() {
@@ -78,56 +73,44 @@ export default function MatchCard()
         setUserName(userData["display_name"])
         setUserImage(userData["img_url"])
         setUserCountry(userData["country"])
+        waiting_match_details();
   }
-  // axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
-  //       setUserData(response.data);
-        
-  //       // console.log(userData);
-  //       setUserName(userData["display_name"])
-  //       setUserImage(userData["img_url"])
-  //       setUserCountry(userData["country"])
-  //       // console.log(userData["top_genres"])
-  // });
 
-  function ReturnMatchDetails(email)
-  {
-    useEffect(() => {
-    axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=candywithonon@ymail.com").then((response) => {
-          setMatchedData(response.data);
-      // console.log(userData);
-      setMatchedName(matchedData["display_name"])
-      console.log("FOUND", matchedData)
+  const waiting_match_details = async() => {
+    const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=jengrung2255@gmail.com");
+      setMatchedData(response.data.match);
+      console.log(matchedData);
+      setMatchedName(matchedData.display_name)
       setMatchedImage(matchedData["img_url"])
-      setMatchedCountry(userData["country"])
-  })
-}, []);
-
+      setMatchedCountry(matchedData["country"])
+      setMatchedEmail(matchedData["email"])
+      console.log(matchedData, matchedName, matchedImage, matchedCountry, matchedEmail, foundMatch, "HI")
+      // setFoundMatch(true);
   }
 
 
   function handleMatchButtonClick()
   {
-    setMatchButtonClick(true);
-    ReturnMatchDetails(userEmail);
+    setMatchButtonClick(!foundMatch);
     setCancelButtonClick(true);
   }
 
   function handleCancelButtonClick()
   {
     setCancelButtonClick(true);
-    setMatchButtonClick(false);
+    // setMatchButtonClick(false);
   }
 
 
   return (
-    <Flex direction="column">
-      <Container>
-      <VStack>
-        <Center>
+    <Container>
+    <Flex direction="column" >
+      <HStack spacing={10}>
         <Box
           p="50px"
+          width="300px"
+          height="550px"
           rounded="20px"
-          overflow="hidden"  
           shadow="lg"
           bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
             <Flex alignItems="center">
@@ -150,26 +133,29 @@ export default function MatchCard()
                     {userCountry}
                   </Text>
                   
-                  <Box
-                  position="relative">
-                    <Button
-                      mt={5}
-                      // spinner={<BeatLoader size={8} color='white' />}
-                      onClick={handleMatchButtonClick}
-                      isLoading={matchButtonClick ? true: false}
-                      loadingText="Matching..."
-                      // colorScheme='teal'
-                      variant={colorMode ==='dark'? "solid" : "outline"} 
-                      size="lg"
-                      colorScheme={colorMode ==='dark'? "pink" : "none"} 
-                      border={colorMode ==='dark'? "0px" : "2px"} 
-                    >
-                      <Text fontWeight="medium" size="1.5xl">Ready to match?</Text>
-                    </Button>
+                    <Box position="relative">
+                      <Button
+                        mt={5}
+                        // spinner={<BeatLoader size={8} color='white' />}
+                        onClick={handleMatchButtonClick}
+                        isLoading={matchButtonClick ? true: false}
+                        loadingText="Matching In Progress.."
+                        
+                        // colorScheme='teal'
+                        variant={colorMode ==='dark'? "solid" : "outline"} 
+                        size="lg"
+                        colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                        border={colorMode ==='dark'? "0px" : "2px"} 
+                      >
+                        <Text fontWeight="medium" size="1.5xl">Ready to match?</Text>
+                      </Button>
                     </Box>
                     
                     <Box>
-                      <IconButton
+                  
+                  
+
+                    <IconButton
                         // spinner={<BeatLoader size={8} color='white' />}
                         my={5}
                         borderRadius="full"
@@ -184,31 +170,25 @@ export default function MatchCard()
                     </IconButton>
                   </Box>
               </VStack>
-            </Flex>
-        </Box>
-        </Center>
-      </VStack>
-       <VStack>
-        <Center>
-        <Box
-          p="50px"
-          rounded="20px"
-          overflow="hidden"  
-          shadow="lg"
-          bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
-            <Flex alignItems="center">
-              <VStack>
-                <Box mt={5}>
-                  <Image 
-                    mt={3}
-                    // src={userImage ? userImage: "none"}
-                    src={matchedImage}
-                    rounded='full'
-                    w={32}
-                    h={32}
-                    boxShadow='md'>
-                  </Image>
-                  </Box>
+              </Flex>
+              </Box>
+
+              
+              <Box
+                p="50px"
+                width="300px"
+                height="550px"
+                rounded="20px"
+                shadow="lg"
+                bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
+                display={foundMatch === false ? false : true}>
+                
+                <Img
+                src={matchedImage}
+                borderRadius = "full"
+                >
+                </Img>
+                </Box>
                   <Text fontSize="3xl" fontWeight="medium" color="black">
                     {matchedName}
                   </Text>
@@ -216,35 +196,12 @@ export default function MatchCard()
                     {matchedCountry}
                   </Text>
                   
-                  <Box
-                  position="relative">
-                    <Button
-                      mt={5}
-                      // spinner={<BeatLoader size={8} color='white' />}
-                    >
-                      Test
-                    </Button>
-                    </Box>
-                    
-                    <Box>
-                      <IconButton
-                        // spinner={<BeatLoader size={8} color='white' />}
-                        my={5}
-                        borderRadius="full"
-                        aria-label='Cancel'
-                        // display={cancelButtonClick ? false: true}
-                      >
-                    </IconButton>
-                  </Box>
-              </VStack>
-            </Flex>
-        </Box>
-        </Center>
-      </VStack>
-
-
-
-      </Container>
+                </HStack>
+            
+        
+    
       </Flex>
+      </Container>
+          
   )
-  }  
+}  
