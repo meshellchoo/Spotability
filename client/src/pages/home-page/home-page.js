@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   VStack,
-  Flex,  useColorMode,
+  Flex,  
+  useColorMode,
   Image,
   IconButton,
-  Button,
   Heading,
   Wrap,
   WrapItem,
   Center,
+  Button,
+  Text,
 } from '@chakra-ui/react';
 import {
   SunIcon,
@@ -17,69 +19,66 @@ import {
 } from '@chakra-ui/icons'
 
 
+
+// Components
+import Container from '../../container';
+import MatchCard from './helper-components/match_card';
+
+import axios from "axios";
+
+import HomePageTitle from "./helper-components/home-title"
+
+import FactsBox from './helper-components/home-factsBox';
+
+import {
+    useEffect
+  } from 'react';
+
+
 function HomePage () {
-  const {colorMode, toggleColorMode} = useColorMode();
+
+  
+const {colorMode, toggleColorMode} = useColorMode();
   return (
-  <VStack>
-    <Box my={10}>
-      <IconButton size="lg" colorScheme={colorMode ==='dark'? "pink" : "blackAlpha"} variant="solid" shadow="lg" borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}>
+    
+      <VStack>
+        <Box my={10} p={2}>
+          <IconButton 
+            size="lg" 
+            colorScheme={colorMode ==='dark'? "pink" : "none"} 
+            variant={colorMode === 'dark' ? "solid" : "outline"} 
+            shadow="md" borderRadius="full" 
+            onClick={toggleColorMode} 
+            icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>} 
+            border='2px'>
+          </IconButton>
+        </Box>
         
-      </IconButton>
-    </Box>
+        <Flex direction="column">
 
-    <Box>
-        <Flex my="20">
-            <Button colorScheme='fec5bb' borderColor='fec5bb'  _hover={{ bg: '#fec5bb' }}>
-                <Image
-                    src="avatar.svg"
-                    boxSize='200px'
-                >
-                </Image>
-            </Button>
+          <HomePageTitle/>
+
+          
+
+          <FactsBox/>
+
+          
+            
+          
+
+    
+          <Box>
+            <MatchCard/>
+          </Box>
+
         </Flex>
-    </Box>    
-
+      </VStack>
     
-    <Box>
-        <Flex my="10">
-            <Heading fontSize="5xl" fontWeight="700" fontStyle="bold">
-                Trending Now
-            </Heading>
-        </Flex>
-    </Box>
-    
-    
-    <Wrap>
-  <WrapItem>
-    <Center w='180px' h='80px' bg='red.200'>
-      Box 1
-    </Center>
-  </WrapItem>
-  <WrapItem>
-    <Center w='180px' h='80px' bg='red.200'>
-      Box 2
-    </Center>
-  </WrapItem>
-  <WrapItem>
-    <Center w='180px' h='80px' bg='red.200'>
-      Box 3
-    </Center>
-  </WrapItem>
-  <WrapItem>
-    <Center w='180px' h='80px' bg='red.200'>
-      Box 4
-    </Center>
-  </WrapItem>
-</Wrap>
-    
-    
-
-    
-
-    
-    
-  </VStack>
   )
 }
+
+        
+
+
 
 export default HomePage
