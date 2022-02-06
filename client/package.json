@@ -8,6 +8,8 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@fontsource/inter": "^4.5.3",
+    "@fontsource/josefin-sans": "^4.5.3",
+    "@fontsource/lato": "^4.5.1",
     "@fontsource/roboto": "^4.5.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^10.4.9",
@@ -17,6 +19,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^3.11.0",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "web-vitals": "^0.2.4"
   },

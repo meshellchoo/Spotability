@@ -1,17 +1,10 @@
 import React from 'react';
 import {
-  ChakraProvider,
   Box,
-  Text,
-  Link,
   VStack,
-  Code,
   Flex,
   useColorMode,
-  Grid,
-  theme,
   Image,
-  Spacer,
   IconButton,
 } from '@chakra-ui/react';
 import {
@@ -19,40 +12,44 @@ import {
   MoonIcon, 
 } from '@chakra-ui/icons'
 
-
 // Components
+import Container from '../../container';
 import Title from './helper-components/title';
-import LoginButton from './helper-components/button'
-
-// Assets
-// import footer-img from "./assets/landing-page-image.svg"
+import LoginButton from './helper-components/login-button';
 
 function LandingPage () {
   const {colorMode, toggleColorMode} = useColorMode();
   return (
-  <VStack>
-    <Box p={3}>
-      <Spacer/>
-      <IconButton borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}></IconButton>
-    </Box>
-    
-    <Box >
-      <Title/>
-    </Box>
+    <Container>
+      <VStack>
+        <Box my={10} p={2}>
+          <IconButton 
+          size="lg" 
+          colorScheme={colorMode ==='dark'? "pink" : "none"} 
+          variant={colorMode === 'dark' ? "solid" : "outline"} 
+          shadow="md" borderRadius="full" 
+          onClick={toggleColorMode} 
+          icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>} 
+          border='2px'>
+          </IconButton>
+        </Box>
+        
+        <Box >
+          <Title/>
+        </Box>
 
-    <Box>
-      <Flex my="150px">
-        <LoginButton/>
-      </Flex>
-    </Box>
+        <Box>
+          <Flex my="110px">
+            <LoginButton/>
+          </Flex>
+        </Box>
 
-    <Box>
-      <Image 
-      src="./landing-page-image.svg">
-      </Image>
-    </Box>
-    
-  </VStack>
+        <Box>
+          <Image src="./landing-page-image.svg"></Image>
+        </Box>
+        
+      </VStack>
+  </Container>
   )
 }
 
