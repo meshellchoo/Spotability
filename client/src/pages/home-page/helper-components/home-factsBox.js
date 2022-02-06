@@ -47,23 +47,23 @@ function FactsBox ()
         <HStack>
             <Wrap>
                 <WrapItem>
-                    <Center w='150px' h='250px' bg='red.200'>
-                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "blue" : "blackAlpha"}>
+                    <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
+                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
                             Your favorite genre is {userFavoriteGenre}
                         </Text>
                     </Center>
                 </WrapItem>
 
                 <WrapItem>
-                    <Center w='150px' h='250px' bg='red.200'>
-                        <Text textAlign='center'>
+                    <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
+                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
                             You are beautifuy Yourself you are nice
                         </Text>    
                     </Center>
                     </WrapItem>
                 <WrapItem>
-                    <Center w='150px' h='250px' bg='red.200'>
-                        <Text textAlign='center' >
+                    <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
+                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
                             You are beautifuy Yourself you are nice
                         </Text>    
                     </Center>
