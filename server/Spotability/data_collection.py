@@ -27,4 +27,5 @@ def get_user_info(auth_token):
     headers={'Authorization': token}
     response = requests.get(URL,headers=headers)
     data = response.json()
+    print("Data:",data)
     return data

@@ -22,7 +22,7 @@ class SpotabilityCollection(MongoConnection):
         self.get_collection('User')
 
     def update_and_save(self, obj):
-        if len(list(self.collection.find_one({'email': obj['email']}))):
+        if self.collection.find_one({'email': obj['email']}) is not None and len(list(self.collection.find_one({'email': obj['email']}))):
             self.collection.update_one({ "email":obj['email']},{"$set":obj})
         else:
             self.collection.insert_one(obj)
