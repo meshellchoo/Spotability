@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from Spotability.data_collection import get_top_genres, get_user_info
 from Spotability.database import add_new_user
+from django.shortcuts import redirect
 # from .util import get_user_tokens, is_spotify_authenticated, update_or_create_user_tokens
 
 # class AuthURL(APIView):
@@ -70,14 +71,12 @@ def spotify_callback(request, format=None):
     
     # save data to database here
     add_new_user(user_map)
+
     
-    
-    
-    
-    
-    if not response:
-        return JsonResponse({'error': 'Spotify request failed!'}, status=response.status_code)
-    return JsonResponse(response, status=status.HTTP_200_OK)
+    # if not response:
+    #     return JsonResponse({'error': 'Spotify request failed!'}, status=response.status_code)
+    # return JsonResponse(response, status=status.HTTP_200_OK)
+    return redirect("http://localhost:3000/")
 
 
 
