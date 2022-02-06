@@ -20,24 +20,31 @@ import {
 
 import axios from "axios";
 
-
+import App from "../../../App"
 
 function HomePageTitle()
 {
     const [userName, setUserName] = useState("");
 
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
+
+    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + App.email).then((response) => {
         setUserName(response.data["display_name"]);
       });
 
 
-
     return(
-
-        <Box maxW='35rem'>
-            <Heading fontSize={25} >Welcome, {userName}! </Heading>
-            <Heading fontSize={25} mb={-20}>Before we start, Here are some fun statistics!</Heading>
+      <VStack>
+        <Flex direction="row">
+        <Box>
+            <Heading fontSize="5xl" textAlign="left" fontWeight="bold">
+              Welcome, {userName}! 
+            </Heading>
         </Box>
+        </Flex>
+        <Box mt={3} lineHeight="1.5" textAlign="left">
+          <Text fontSize={27} mb={10}>Before we start, here are some fun statistics...</Text>
+        </Box>
+      </VStack>
         
     )
 }

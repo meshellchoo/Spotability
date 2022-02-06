@@ -10,8 +10,8 @@ import {
   WrapItem,
   Center,
   Button,
-  Text,
-  HStack,
+Text,
+HStack,
 } from '@chakra-ui/react';
 import {
   SunIcon,
@@ -21,6 +21,7 @@ import {
 
 import axios from "axios";
 import delayAdapterEnhancer from 'axios-delay';
+import App from "../../../App"
 
 // function Rec()
 // {
@@ -44,11 +45,14 @@ import delayAdapterEnhancer from 'axios-delay';
 //     return recTrack
 // }
 
+
+
+
 function FactsBox ()
 {
 
     
-
+    
     const {colorMode, toggleColorMode} = useColorMode();
 
     const [userTopGenres, setUserTopGenres] = useState("");
@@ -57,7 +61,7 @@ function FactsBox ()
 
     const [userRecTrack, setUserRecTrack] = useState("");
 
-    const [recArtist, setRecArtist] = useState("");
+    const [FavArtist, setFavArtist] = useState("");
 
     const [recTrack, setRecTrack] = useState("");
 
@@ -65,9 +69,11 @@ function FactsBox ()
 
     const [thirdRec, setThirdRec] = useState("");
 
+    const [thirdImg, setThirdImag] = useState("");
 
 
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
+
+    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + App.email).then((response) => {
         
         
         setUserTopGenres(response.data["top_genres"]);
@@ -78,21 +84,23 @@ function FactsBox ()
         }
       });
 
-      axios.get("http://127.0.0.1:8000/spotability/get_recommended_track?email=candywithonon@ymail.com").then((response) => {
+      axios.get("http://127.0.0.1:8000/spotability/top_artist?email=" + App.email).then((response) => {
         
-        setRecArtist(response.data["artist"]);
-        setRecTrack(response.data["title"]);
-        setRecImage(response.data["img_url"]);
+        setFavArtist(response.data["name"]);
+       
 
-        console.log(userRecTrack);
+
         
         
       });
 
-      axios.get("http://localhost:8000/spotability/top_track?email=candywithonon@ymail.com").then((response) => {
+      axios.get("http://localhost:8000/spotability/top_track?email=" + App.email).then((response) => {
         
         setThirdRec(response.data["name"])
-        
+
+        console.log(thirdRec)
+
+        setThirdImag(response.data["images"])
       });
 
       
@@ -100,6 +108,7 @@ function FactsBox ()
     
 
     return(
+        <Flex direction="column">
         <HStack>
             <Wrap>
                 <WrapItem>
@@ -109,29 +118,29 @@ function FactsBox ()
                         </Text>
                     </Center>
                 </WrapItem>
-
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            You favorite artist: {recTrack}
+                            You favorite artist: {FavArtist}
                         </Text>    
                     </Center>
                     </WrapItem>
                 <WrapItem>
+                
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
                             You love:  {thirdRec}
                         </Text>    
                     </Center>
                 </WrapItem>
-                    
             </Wrap>
 
-            <Image boxSize={450} src="../header-component-girl.svg">
+            <Image width="400" height="500" src="../header-component-girl.svg">
 
             </Image>
 
         </HStack>
+        </Flex>
     )
 }
 
