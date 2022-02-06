@@ -19,24 +19,25 @@ import {
 
 import axios from "axios";
 
+import HomePageTitle from "./helper-components/home-title"
+
+import FactsBox from './helper-components/home-factsBox';
+
 import {
     useEffect
   } from 'react';
 
 function HomePage () {
-  const {colorMode, toggleColorMode} = useColorMode();
-  const [userData, setUserData] = useState("");
-  const [userImage, setUserImage] = useState("");
+  
+  
+const {colorMode, toggleColorMode} = useColorMode();
 
-  axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
-        setUserData(response.data);
-        //console.log(userData);
-        setUserImage(userData["img_url"])
-        // console.log(userData["top_genres"])
-      });
+  
 
   return (
+    
     <VStack >
+        
         <Box my={10}>
             <IconButton 
               size="lg" 
@@ -47,100 +48,20 @@ function HomePage () {
               icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>} 
               border='2px'>
             </IconButton>
-          </Box>
+        </Box>
 
         <Flex direction="column">
-            <Box>
-            <Image src={userImage} boxSize='200px'></Image>
-            </Box>
-            <Box>
-                <Heading fontSize="3xl" fontWeight="700" fontStyle="bold" >
-                Before we start, let's learn more about yourself.
-                </Heading>
-            </Box>
             
-            <Wrap>
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-                        <Text textAlign='center' color={colorMode ==='dark'? "red" : "blackAlpha"}>
-                            You are beautifuy Yourself you are nice
-                        </Text>
-                    </Center>
-                </WrapItem>
-
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-                        <Text textAlign='center'>
-                            You are beautifuy Yourself you are nice
-                        </Text>    
-                    </Center>
-                    </WrapItem>
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-                        <Text textAlign='center' >
-                            You are beautifuy Yourself you are nice
-                        </Text>    
-                    </Center>
-                </WrapItem>
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-                        <Text textAlign='center'>
-                            You are beautifuy Yourself you are nice
-                        </Text>    
-                    </Center>
-                </WrapItem>
-            </Wrap>
-        
-            <Flex my="40px"/>
-
-            <Box>
-                <Center>
-                    <Button size="lg" 
-                    bgGradient='linear(to-r, green.200, pink.500)' 
-                    _hover={{ bg: '#fb76dc' }} 
-                    
-                    >
-                        Match Now
-                    </Button>
-                </Center>
-            </Box>
+            <HomePageTitle/>
+            
+            <FactsBox/>
             
             <Flex my="40px"/>
-
-            <Box>
-                <Heading fontSize="4xl" fontWeight="700" fontStyle="bold">
-                Tips For your Next Match
-                </Heading>
-            </Box>
-
-
-            <Wrap>
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-        
-                        </Center>
-                </WrapItem>
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-                        
-                        </Center>
-                    </WrapItem>
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-                        
-                        </Center>
-                </WrapItem>
-                <WrapItem>
-                    <Center w='200px' h='300px' bg='red.200'>
-                        
-                        </Center>
-                </WrapItem>
-            </Wrap>
             
-
-
+            <Flex my="40px"/>
         </Flex>
     </VStack>
+    
   )
 }
 
