@@ -77,15 +77,17 @@ export default function MatchCard()
   }
 
   const waiting_match_details = async() => {
-    const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=jengrung2255@gmail.com");
+    if (foundMatch !== true)
+    {
+      const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=jengrung2255@gmail.com");
       setMatchedData(response.data.match);
       console.log(matchedData);
       setMatchedName(matchedData.display_name)
       setMatchedImage(matchedData["img_url"])
       setMatchedCountry(matchedData["country"])
       setMatchedEmail(matchedData["email"])
-      console.log(matchedData, matchedName, matchedImage, matchedCountry, matchedEmail, foundMatch, "HI")
-      // setFoundMatch(true);
+    }
+
   }
 
 
@@ -98,7 +100,7 @@ export default function MatchCard()
   function handleCancelButtonClick()
   {
     setCancelButtonClick(true);
-    // setMatchButtonClick(false);
+    setMatchButtonClick(false);
   }
 
 
@@ -107,15 +109,15 @@ export default function MatchCard()
     <Flex direction="column" >
       <HStack spacing={10}>
         <Box
-          p="50px"
+          p="51px"
           width="300px"
-          height="550px"
+          height="500px"
           rounded="20px"
           shadow="lg"
           bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
             <Flex alignItems="center">
               <VStack>
-                <Box mt={5}>
+                <Box mt={2}>
                   <Image 
                     mt={3}
                     src={userImage ? userImage: "none"}
@@ -132,25 +134,23 @@ export default function MatchCard()
                   <Text fontSize="xl" fontWeight="small" color="black">
                     {userCountry}
                   </Text>
-                  
                     <Box position="relative">
                       <Button
                         mt={5}
                         // spinner={<BeatLoader size={8} color='white' />}
                         onClick={handleMatchButtonClick}
                         isLoading={matchButtonClick ? true: false}
-                        loadingText="Matching In Progress.."
                         
                         // colorScheme='teal'
                         variant={colorMode ==='dark'? "solid" : "outline"} 
                         size="lg"
                         colorScheme={colorMode ==='dark'? "pink" : "none"} 
                         border={colorMode ==='dark'? "0px" : "2px"} 
+                        _hover={{color:"pink"}}
                       >
                         <Text fontWeight="medium" size="1.5xl">Ready to match?</Text>
                       </Button>
                     </Box>
-                    
                     <Box>
                   
                   
@@ -161,14 +161,18 @@ export default function MatchCard()
                         borderRadius="full"
                         aria-label='Cancel'
                         // display={cancelButtonClick ? false: true}
+                        width={30}
+                        height={30}
                         variant={colorMode ==='dark'? "solid" : "outline"} 
                         colorScheme={colorMode ==='dark'? "pink" : "none"} 
                         onClick={handleCancelButtonClick}
                         icon={<SmallCloseIcon/>}
+                        _hover={{color:"pink"}}
                         border={colorMode ==='dark'? "0px" : "2px"} 
                       >
                     </IconButton>
                   </Box>
+                  
               </VStack>
               </Flex>
               </Box>
@@ -177,18 +181,18 @@ export default function MatchCard()
               <Box
                 p="50px"
                 width="300px"
-                height="550px"
+                height="500px"
                 rounded="20px"
                 shadow="lg"
                 bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
                 display={foundMatch === false ? false : true}>
-                
+                <VStack>
                 <Img
                 src={matchedImage}
                 borderRadius = "full"
                 >
                 </Img>
-                </Box>
+                
                   <Text fontSize="3xl" fontWeight="medium" color="black">
                     {matchedName}
                   </Text>
@@ -196,6 +200,8 @@ export default function MatchCard()
                     {matchedCountry}
                   </Text>
                   
+                  </VStack>
+                  </Box>
                 </HStack>
             
         
