@@ -73,6 +73,8 @@ def spotify_callback(request, format=None):
             "previously_seen": {},
     }
     
+
+    
     # save data to database here
     add_new_user(user_map)
 

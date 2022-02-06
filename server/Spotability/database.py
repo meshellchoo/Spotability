@@ -26,7 +26,7 @@ class SpotabilityCollection(MongoConnection):
             self.collection.update_one({ "email":obj['email']},{"$set":obj})
         else:
             self.collection.insert_one(obj)
-            
+
     def test(self):
         self.collection.insert_one({'email':123,'name':'test'})
         
