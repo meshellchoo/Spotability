@@ -4,6 +4,7 @@ from django.http import JsonResponse
 import requests
 import json
 import random
+from bson.json_util import dumps
 from Spotability.database import SpotabilityCollection, GenreCollection
 """
     "people_who_swiped_you": {},
@@ -22,7 +23,9 @@ def get_a_match(request):
     # update prev seen
     user["previously_seen"][match] = match
     user_obj.update_and_save(user)
-    return JsonResponse({"match":match,"overlapping_genre":genre})
+    
+    user = user_obj.search_by_email(match)
+    return JsonResponse({"match":(json.loads(dumps(user))),"overlapping_genre":genre}))
 
 
 def generate_random_match(user):
