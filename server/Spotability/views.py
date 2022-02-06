@@ -63,6 +63,7 @@ def spotify_callback(request, format=None):
             "country": data["country"],
             "gender": "",
             "img_url": data["images"][0]["url"],
+            "access_token":access_token,
             "refresh_token":refresh_token,
             "expires_in":expires_in,
             "token_type":token_type,
