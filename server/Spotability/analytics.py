@@ -1,6 +1,4 @@
-from distutils.errors import DistutilsFileError
 from os import access
-from unicodedata import name
 from django.shortcuts import  redirect
 from django.http import JsonResponse
 import requests
