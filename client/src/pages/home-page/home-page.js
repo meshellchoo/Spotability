@@ -29,14 +29,15 @@ import axios from "axios";
 import HomePageTitle from "./helper-components/home-title"
 
 import FactsBox from './helper-components/home-factsBox';
-
+import ReturnMatchedPerson from './helper-components/match_details';
 import {
     useEffect
   } from 'react';
 
 
-function HomePage () {
-const {colorMode, toggleColorMode} = useColorMode();
+function HomePage (auth) {
+    const {colorMode, toggleColorMode} = useColorMode();
+    console.log("HP", auth);
   return (
       
     <Container>
@@ -65,7 +66,8 @@ const {colorMode, toggleColorMode} = useColorMode();
         </Box>
 
         <Box>
-            <MatchCard/>
+            <MatchCard auth={auth}/>
+            {/* <ReturnMatchedPerson/> */}
         </Box>
         </Flex>
         </Center>
@@ -77,7 +79,5 @@ const {colorMode, toggleColorMode} = useColorMode();
 }
 
         
-
-
 
 export default HomePage

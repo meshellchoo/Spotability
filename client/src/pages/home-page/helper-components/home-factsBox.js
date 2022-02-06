@@ -10,8 +10,8 @@ import {
   WrapItem,
   Center,
   Button,
-  Text,
-  HStack,
+Text,
+HStack,
 } from '@chakra-ui/react';
 import {
   SunIcon,

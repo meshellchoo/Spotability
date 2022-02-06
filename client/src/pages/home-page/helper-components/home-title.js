@@ -26,9 +26,9 @@ function HomePageTitle()
 {
     const [userName, setUserName] = useState("");
 
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
-        setUserName(response.data["display_name"]);
-      });
+    // axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
+    //     setUserName(response.data["display_name"]);
+    //   });
 
     return(
       <VStack>
