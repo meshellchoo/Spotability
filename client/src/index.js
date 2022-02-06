@@ -25,6 +25,9 @@ ReactDOM.render(
 
         {/* <Route path="/user/:accessToken/:refreshToken" component={<HomePage/>} /> */}
         {/* <Route path="/spotability/redirect/:email" element={<App />} /> */}
+
+        {/* :email means it is a param */}
+
         <Route path="/spotability/redirect/" element={<App />} />
         {/* :email means it is a param */}
       </Routes>  

@@ -32,19 +32,23 @@ import HomePageTitle from "./helper-components/home-title"
 
 import FactsBox from './helper-components/home-factsBox';
 
+
 import Like from './helper-components/likeButton';
 
 import Dislike from './helper-components/dislikeButton';
+
+
+import ReturnMatchedPerson from './helper-components/match_details';
 
 import {
     useEffect
   } from 'react';
 
 
-function HomePage () {
-
-  
-const {colorMode, toggleColorMode} = useColorMode();
+    
+function HomePage (auth) {
+    console.log("HP", auth);
+    const {colorMode, toggleColorMode} = useColorMode();
   return (
       
     <Container>
@@ -73,7 +77,8 @@ const {colorMode, toggleColorMode} = useColorMode();
         </Box>
 
         <Box>
-            <MatchCard/>
+            <MatchCard auth={auth}/>
+            {/* <ReturnMatchedPerson/> */}
         </Box>
         </Flex>
         </Center>
@@ -96,7 +101,5 @@ const {colorMode, toggleColorMode} = useColorMode();
 }
 
         
-
-
 
 export default HomePage
