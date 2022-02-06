@@ -30,14 +30,19 @@ function HomePageTitle()
         setUserName(response.data["display_name"]);
       });
 
-
-
     return(
-
-        <Box maxW='35rem'>
-            <Heading fontSize={25} >Welcome, {userName}! </Heading>
-            <Heading fontSize={25} mb={-20}>Before we start, Here are some fun statistics!</Heading>
+      <VStack>
+        <Flex direction="row">
+        <Box>
+            <Heading fontSize="5xl" textAlign="left" fontWeight="bold">
+              Welcome, {userName}! 
+            </Heading>
         </Box>
+        </Flex>
+        <Box mt={3} lineHeight="1.5" textAlign="left">
+          <Text fontSize={27} mb={10}>Before we start, here are some fun statistics...</Text>
+        </Box>
+      </VStack>
         
     )
 }

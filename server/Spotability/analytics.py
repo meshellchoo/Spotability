@@ -50,8 +50,10 @@ def get_recommended_track(request):
     token = "Bearer " + user['access_token']
     headers={'Authorization': token}
     random_genres = requests.get('https://api.spotify.com/v1/recommendations/available-genre-seeds',headers=headers).json()['genres']
+
     random_genre = random_genres[0]
     # random_genre = random_genres[random.randint(0,len(random_genres)-1)]
+
     params={'seed_genres':random_genre}
     response = requests.get(URL,headers=headers,params=params)
     data = response.json()

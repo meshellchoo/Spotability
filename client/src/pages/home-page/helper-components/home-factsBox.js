@@ -103,6 +103,7 @@ function FactsBox ()
     
 
     return(
+        <Flex direction="column">
         <HStack>
             <Wrap>
                 <WrapItem>
@@ -112,7 +113,6 @@ function FactsBox ()
                         </Text>
                     </Center>
                 </WrapItem>
-
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
@@ -128,14 +128,14 @@ function FactsBox ()
                         </Text>    
                     </Center>
                 </WrapItem>
-                    
             </Wrap>
 
-            <Image boxSize={450} src="../header-component-girl.svg">
+            <Image width="400" height="500" src="../header-component-girl.svg">
 
             </Image>
 
         </HStack>
+        </Flex>
     )
 }
 

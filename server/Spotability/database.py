@@ -42,7 +42,7 @@ class SpotabilityCollection(MongoConnection):
             return None
         else:
             return cursor
-
+    
 # A database object that connect to the genre collection
 
 
