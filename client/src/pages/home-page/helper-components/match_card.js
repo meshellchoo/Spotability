@@ -76,7 +76,7 @@ export default function MatchCard()
           rounded="20px"
           overflow="hidden"
           shadow="lg"
-          bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
+          bg={(colorMode === 'dark' ? 'red.200' : '#ffffff')}>
           <VStack>
             <Flex alignItems="center">
               <VStack>
