@@ -30,6 +30,15 @@ import ReturnMatchedPerson from './match_details';
 
 
 
+function Card(props)
+{
+  const {variant, children,  ...rest} = props
+  const styles = useStyleConfig('Card', {variant})
+  return <Box _css={styles} {...rest} />
+}
+
+
+
 export default function MatchCard()
 {
   // const [userEmail, setUserEmail] = useState("")
@@ -41,6 +50,16 @@ export default function MatchCard()
   const [userImage, setUserImage] = useState("");
   const [userCountry, setUserCountry] = useState("");
   const {colorMode, toggleColorMode} = useColorMode();
+
+  
+  // setUserEmail("candywithonon@ymail.com");
+  const userEmail = "candywithonon@ymail.com"
+  
+  axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + App.email).then((response) => {
+        setUserData(response.data);
+        
+        // console.log(userData);
+
 
   const [matchedData, setMatchedData] = useState("");
   const [matchedName, setMatchedName] = useState("");
@@ -70,6 +89,7 @@ export default function MatchCard()
   {
         setUserData(e);
         console.log(userData);
+
         setUserName(userData["display_name"])
         setUserImage(userData["img_url"])
         setUserCountry(userData["country"])
