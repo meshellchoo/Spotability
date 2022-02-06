@@ -36,6 +36,8 @@ import {
 
 
 function HomePage () {
+
+  
 const {colorMode, toggleColorMode} = useColorMode();
   return (
     
