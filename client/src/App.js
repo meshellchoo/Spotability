@@ -14,6 +14,19 @@ import {
 } from '@chakra-ui/react';
 import Container from './container';
 import LandingPage from './pages/landing-page/landing-page';
+import HomePage from './pages/home-page/home-page';
+
+
+const routes = [
+  { path: "/", name: "LandingPage", Component: LandingPage },
+  { path: "/HomePage", name:"HomePage", Component: HomePage },
+];
+
+const handleClick = () =>{
+  HomePage()
+}
+
+
 
 function App() {
   return (
@@ -21,7 +34,7 @@ function App() {
       <Box>
         <Flex>
         <VStack>
-          <LandingPage/>
+          <HomePage/>
         </VStack>
         </Flex>
       </Box>
