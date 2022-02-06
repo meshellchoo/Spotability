@@ -49,16 +49,12 @@ def get_top_artist_from_user(request):
     response = requests.get(URL,headers=headers,params=params)
     data = response.json()
     
-    # artist = data['items'][0]['artists'][0]['name']
     name = data['items'][0]['name']
-    # images = data['items'][0]['name']
-    # images = data['items'][0]['href']['images'][0]['url']
+    images = data['items'][0]['images'][0]['url']
     
-    # print("image: ", images)
-    
-    # output = {"name":name, "artist": artist, "images":images}
+    output = {"name":name, "images":images}
 
-    return JsonResponse({"meg":"no bug"})
+    return JsonResponse(output)
 
 
 # ex: https://api.spotify.com/v1/recommendations?seed_genres=classical,country 
