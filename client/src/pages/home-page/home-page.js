@@ -35,9 +35,10 @@ import {
   } from 'react';
 
 
+    
 function HomePage (auth) {
-    const {colorMode, toggleColorMode} = useColorMode();
     console.log("HP", auth);
+    const {colorMode, toggleColorMode} = useColorMode();
   return (
       
     <Container>

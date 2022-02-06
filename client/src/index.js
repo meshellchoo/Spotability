@@ -22,7 +22,11 @@ ReactDOM.render(
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/spotability/redirect" element={<App />} />
+
+        {/* <Route path="/user/:accessToken/:refreshToken" component={<HomePage/>} /> */}
+        <Route path="/spotability/redirect/:email" element={<App />} />
+        {/* :email means it is a param */}
+        <Route path="/spotability/redirect/" element={<App />} />
       </Routes>  
     </BrowserRouter>
     </ChakraProvider>
