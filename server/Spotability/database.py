@@ -42,7 +42,7 @@ class SpotabilityCollection(MongoConnection):
             print(cursor)
             return cursor
             
-            
+
 def test(request):
     obj = SpotabilityCollection()
     obj.test()
@@ -76,3 +76,28 @@ def search_by_email(request):
         return JsonResponse(json.loads(dumps(user)),safe=False)
     else:
         return JsonResponse({"msg":"No such user."})
+
+    
+class GenreCollection(MongoConnection):
+
+    def __init__(self):
+        super(SpotabilityCollection, self).__init__()
+        self.get_collection('Genre')
+
+    def update_and_save(self, obj):
+        if self.collection.find_one({'email': obj['email']}) is not None and len(list(self.collection.find_one({'email': obj['email']}))):
+            self.collection.update_one({ "email":obj['email']},{"$set":obj})
+        else:
+            self.collection.insert_one(obj)
+            
+    def test(self):
+        self.collection.insert_one({'email':123,'name':'test'})
+            
+    def search_by_genre(self,genre):
+        cursor = self.collection.find_one({'genre':genre})
+        if cursor is None or len(list(cursor)) == 0:
+            return None
+        else:
+            print(cursor)
+            return cursor
+            

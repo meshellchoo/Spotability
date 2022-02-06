@@ -18,9 +18,8 @@ def get_top_genres(auth_token):
                 genres_count[genre] += 1
             else:
                 genres_count[genre] = 1
-        
-    return genres_count
-    
+    return sorted(genres_count, key=genres_count.get, reverse=True)
+
 def get_user_info(auth_token):
     URL = '	https://api.spotify.com/v1/me'
     token = "Bearer " + auth_token
