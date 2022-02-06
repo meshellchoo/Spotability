@@ -67,6 +67,10 @@ def spotify_callback(request, format=None):
             "expires_in":expires_in,
             "token_type":token_type,
             "top_genres":top_genres,
+            "people_who_swiped_you": {},
+            "people_who_you_swiped":{},
+            "mutual_swipes": {} ,
+            "previously_seen": {},
     }
     
     # save data to database here
