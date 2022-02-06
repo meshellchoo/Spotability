@@ -3,6 +3,7 @@ from .analytics import get_top_genre,get_top_track_from_top_genre,get_recommende
 from .matchmaking import get_a_match, like_match, reject_match
 from .views import get, spotify_callback
 from .database import search_by_email, test
+from .analytics import get_top_track_from_top_genre
 
 appname = 'Spotability'
 urlpatterns = [
@@ -19,4 +20,6 @@ urlpatterns = [
     path('get_recommended_track',get_recommended_track),
     # path('is-authenticated/', isAuthenticated.as_view()),
     path('test/', test),
+    
+    path('top_track', get_top_track_from_top_genre),
 ]
