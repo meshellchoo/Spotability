@@ -1,18 +1,10 @@
 import React from 'react';
 import {
-  ChakraProvider,
   Box,
-  Text,
-  Link,
   VStack,
-  Code,
   Flex,  useColorMode,
-  Grid,
-  theme,
   Image,
-  Spacer,
   IconButton,
-  HStack,
   Button,
   Heading,
   Wrap,
@@ -25,16 +17,14 @@ import {
 } from '@chakra-ui/icons'
 
 
-
-
-
-
 function HomePage () {
   const {colorMode, toggleColorMode} = useColorMode();
   return (
   <VStack>
     <Box my={10}>
-      <IconButton size="lg" colorScheme={colorMode ==='dark'? "pink" : "blackAlpha"} variant="solid" shadow="lg" borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}></IconButton>
+      <IconButton size="lg" colorScheme={colorMode ==='dark'? "pink" : "blackAlpha"} variant="solid" shadow="lg" borderRadius="full" onClick={toggleColorMode} icon={colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}>
+        
+      </IconButton>
     </Box>
 
     <Box>

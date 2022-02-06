@@ -13,7 +13,6 @@ import {
   useMediaQuery
 } from '@chakra-ui/react';
 
-
 import {useState, useEffect} from 'react'
 import axios from "axios";
 
@@ -38,11 +37,11 @@ function LoginButton () {
       }
     }, [isDesktop, desktopQuery])
 
-    const handleClick = () => {
-        axios.get(baseURL).then((response) => {
-          });
+    // const handleClick = () => {
+    //     axios.get(baseURL).then((response) => {
+    //       });
           
-    }
+    // }
 
     return(
         <VStack>
@@ -61,16 +60,16 @@ function LoginButton () {
                     </Flex>
                 </Flex>
                 <Box >
-                  <Button _hover={{ bg: '#86f29a' }}  
+                  <Button 
+                    as="a"
+                    _hover={{ bg: '#86f29a' }}  
                     size={isDesktop === true ? 'lg': 'md'}
                     shadow='lg'
                     bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
-                    onClick={handleClick}> 
-
+                    > 
                     <Text color='#000' fontSize={isDesktop === true ? '1xl': 'md'} >
                       {isDesktop === true ? "Login with Spotify": "Login with Spotify"}
                     </Text> 
-                
                   </Button>
                   </Box>
             </HStack>

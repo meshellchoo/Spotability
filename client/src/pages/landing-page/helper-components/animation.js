@@ -26,8 +26,6 @@ const bounce_right = keyframes`
 }
 `;
 
-
-
 function LoopObject() {
     const {colorMode, toggleColorMode} = useColorMode();
     const bounce_animation = `${bounce_right} infinite 2s linear`;
@@ -39,7 +37,6 @@ function LoopObject() {
           height="35px"
           alt="Finger Pointing Right"
           src={colorMode === 'dark' ? "pointing_right_night.svg" : "pointing_right_light.png"}>
-
           </img>
       </Box>
     )
