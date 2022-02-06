@@ -55,7 +55,7 @@ def spotify_callback(request, format=None):
     # save data to database here
     
     
-    # data = get_top_genres(access_token)
+    data = get_top_genres(access_token)
     
     
     

@@ -2,12 +2,22 @@ from os import access
 from django.shortcuts import  redirect
 from django.http import JsonResponse
 import requests
+import json 
 
 def get_top_genres(auth_token):
-    print("auth_token",auth_token)
-    token = "Bearer " + 'BQCk4VBnPJgTU5uDcA4JrrAQUpZ56plbzzwdtFqKgrwIvCp-KqjqUOvS-DGBsfztLcay505TuDqNIbPVXHwukT-mD7bW-CtFH123TzswcQYd0aG0vPmsNOW3O930RF80jXb9Bx21cj3BrRZhMnIaY8idEuS7zNUgu6Yv3so'
-    response = requests.get('https://api.spotify.com/v1/me/top/artists?limit=50', headers={'Authorization': token}).json()
-    print(response)
-    # genres_count = {}
-    return {}
+    BASE_URL = 'https://api.spotify.com/v1/me/top/artists'
+    params = {"limit":50,}
+    token = "Bearer " + auth_token
+    headers={'Authorization': token}
+    response = requests.get(BASE_URL,headers=headers,params=params)
+    data = response.json()
+    genres_count = {}
+    for item in data["items"]:
+        for genre in item["genres"]:            
+            if genre in genres_count:
+                genres_count[genre] += 1
+            else:
+                genres_count[genre] = 1
+        
+    return JsonResponse(data)
     
