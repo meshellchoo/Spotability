@@ -15,6 +15,7 @@ import {
 import Container from './container';
 import LandingPage from './pages/landing-page/landing-page';
 import HomePage from './pages/home-page/home-page';
+import LoginButton from './pages/landing-page/helper-components/button';
 
 
 const routes = [
@@ -34,7 +35,8 @@ function App() {
       <Box>
         <Flex>
         <VStack>
-          <HomePage/>
+          <LandingPage/>
+          {/* <HomePage/> */}
         </VStack>
         </Flex>
       </Box>
