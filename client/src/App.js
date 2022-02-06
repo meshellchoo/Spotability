@@ -19,11 +19,9 @@ function App() {
   return (
     <Container>
       <Box>
-        <Flex>
         <VStack>
           <HomePage/>
         </VStack>
-        </Flex>
       </Box>
     </Container>
   );

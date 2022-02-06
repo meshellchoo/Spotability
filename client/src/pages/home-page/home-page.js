@@ -38,8 +38,10 @@ import {
 function HomePage () {
 const {colorMode, toggleColorMode} = useColorMode();
   return (
-    
-      <VStack>
+      
+    <Container>
+        
+        <VStack>
         <Box my={10} p={2}>
           <IconButton 
             size="lg" 
@@ -51,26 +53,25 @@ const {colorMode, toggleColorMode} = useColorMode();
             border='2px'>
           </IconButton>
         </Box>
+
+        <Center>
+            <Flex direction="column">
+        <Box>
+            <HomePageTitle/>
+        </Box>
         
-        <Flex direction="column">
+        <Box>
+            <FactsBox/>
+        </Box>
 
-          <HomePageTitle/>
-
-          
-
-          <FactsBox/>
-
-          
-            
-          
-
-    
-          <Box>
+        <Box>
             <MatchCard/>
-          </Box>
-
+        </Box>
         </Flex>
+        </Center>
+
       </VStack>
+    </Container>
     
   )
 }

@@ -70,12 +70,11 @@ export default function MatchCard()
 
   return (
     <Flex direction="column" >
+      <Container>
       <VStack>
         <Center>
         <Box
-          // width="310px"
-          // height="450px"
-          p={10}
+          p={15}
           rounded="20px"
           overflow="hidden"  
           shadow="lg"
@@ -84,7 +83,7 @@ export default function MatchCard()
               <VStack>
                 <Box mt={5}>
                   <Image 
-                    mt={5}
+                    mt={3}
                     src={userImage ? userImage: "none"}
                     // src={userImage}
                     rounded='full'
@@ -138,6 +137,7 @@ export default function MatchCard()
         </Box>
         </Center>
       </VStack>
+      </Container>
       </Flex>
   )
   }  
