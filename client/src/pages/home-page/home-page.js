@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import {
   Box,
   VStack,
-  Flex,  useColorMode,
+  Flex,  
+  useColorMode,
   Image,
   IconButton,
   Heading,
@@ -33,13 +34,9 @@ import {
     useEffect
   } from 'react';
 
+
 function HomePage () {
-  
-  
 const {colorMode, toggleColorMode} = useColorMode();
-
-  
-
   return (
     <Container>
       <VStack>
@@ -65,21 +62,13 @@ const {colorMode, toggleColorMode} = useColorMode();
           <MatchCard/>
         </Box>
         </Flex>
-        
-{/* 
-        <Flex direction="column">
-            
-            <HomePageTitle/>
-            
-            <FactsBox/>
-            
-            <Flex my="40px"/>
-            
-            <Flex my="40px"/>
-        </Flex>
-    </VStack>
-    
+        </VStack>
+        </Container>
   )
 }
+
+        
+
+
 
 export default HomePage
