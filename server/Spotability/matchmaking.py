@@ -31,14 +31,13 @@ def generate_random_match(user):
     genre_obj = GenreCollection()
     potential_matches = genre_obj.get_all_matches_in_genre(user['top_genres'][0])
     rand = random.randint(0,len(potential_matches)-1)
-    print("potential_matches",potential_matches['email'])
     match = potential_matches['email'][1]
     while (match == user["email"] or match in user["previously_seen"]) and counter < len(potential_matches): 
         rand = random.randint(0,len(potential_matches)-1)
-        match = potential_matches[rand]
+        match = potential_matches['email'][rand]
         counter += 1
-        
-    # json.loads(dumps(user)
+    if len(potential_matches) == 0:
+        return 'michaelchu@ymail.com',user['top_genres'][0]
     return match,user['top_genres'][0]
 
 def like_match(request):
