@@ -6,7 +6,9 @@ from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
-from .util import get_user_tokens, is_spotify_authenticated, update_or_create_user_tokens
+from Spotability.data_collection import get_top_genres
+# from .util import get_user_tokens, is_spotify_authenticated, update_or_create_user_tokens
+
 # class AuthURL(APIView):
 #     def get(self,request,format=None):
 #         # check for scopes here -> https://developer.spotify.com/documentation/general/guides/authorization/scopes/
@@ -23,7 +25,6 @@ from .util import get_user_tokens, is_spotify_authenticated, update_or_create_us
 def get(request):
     # check for scopes here -> https://developer.spotify.com/documentation/general/guides/authorization/scopes/
     scopes = 'user-read-private user-read-email user-top-read'
-    print('test',REDIRECT_URI)
     url = Request('GET','https://accounts.spotify.com/authorize',params={
         'scope': scopes,
         'response_type': 'code',
@@ -37,24 +38,30 @@ def get(request):
 def spotify_callback(request, format=None):
     code = request.GET.get('code')
     error = request.GET.get('error')
-    
     response = post('https://accounts.spotify.com/api/token',data={
         'grant_type' : 'authorization_code',
-        'code': 'code',
+        'code': code,
         'redirect_uri': REDIRECT_URI,
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET,
     }).json()
-    
+    print("response",response)
     access_token = response.get('access_token')
     token_type = response.get('token_type')
     refresh_token = response.get('refresh_token')
     expires_in = response.get('expires_in')
     error = response.get('error')
+
+    # save data to database here
     
-    if not response.ok:
-        return Response({'error': 'Spotify request failed!'}, status=response.status_code)
-    return Response(response.json(), status=status.HTTP_200_OK)
+    
+    # data = get_top_genres(access_token)
+    
+    
+    
+    if not response:
+        return JsonResponse({'error': 'Spotify request failed!'}, status=response.status_code)
+    return JsonResponse(response, status=status.HTTP_200_OK)
 
 
 

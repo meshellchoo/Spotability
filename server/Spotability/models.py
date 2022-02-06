@@ -1,14 +1,8 @@
 from django.db import models
 
-class SpotifyToken(models.Model):
-    session = models.CharField(max_length=50,unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    refresh_token = models.CharField(max_length=150)
-    access_token = models.CharField(max_length=150)
-    expires_in = models.DateTimeField()
-    token_type = models.CharField(max_length=50)
 class User(models.Model):
     # User info
+    _id = models.CharField(max_length=50,unique=True) 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
@@ -20,8 +14,9 @@ class User(models.Model):
 	# peopleWhoSwipedYou: array 
     # mutualSwipes: array
     # previouslySeen: map 
-    spotify_token = models.OneToOneField(
-        SpotifyToken,
-        on_delete=models.CASCADE,
-    )
-
+    # token info
+    created_at = models.DateTimeField(auto_now_add=True)
+    refresh_token = models.CharField(max_length=150)
+    access_token = models.CharField(max_length=150)
+    expires_in = models.DateTimeField()
+    token_type = models.CharField(max_length=50)

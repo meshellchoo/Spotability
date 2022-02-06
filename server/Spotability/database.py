@@ -15,7 +15,7 @@ class SpotabilityCollection(MongoConnection):
     def __init__(self):
         super(SpotabilityCollection, self).__init__()
         self.get_collection('User')
-
+    
     def update_and_save(self, obj):
         if self.collection.find({'id': obj.id}).count():
             self.collection.update({ "id": obj.id},{'id':123,'name':'test'})
@@ -28,6 +28,7 @@ class SpotabilityCollection(MongoConnection):
     def remove(self, obj):
         if self.collection.find({'id': obj.id}).count():
             self.collection.delete_one({ "id": obj.id})
+        
             
 def test(request):
     obj = SpotabilityCollection()
