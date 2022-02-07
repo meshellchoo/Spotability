@@ -26,34 +26,29 @@ import App from "../../../App"
 
 function HomePageTitle(email)
 {
-    console.log("em" , email)  
+    console.log("em" , email.email.email)
     const [userName, setUserName] = useState("");
     const [authEmail, setAuthEmail ] = useState("");
-
     useEffect(() => {
-      setAuthEmail(authEmail);
+      setAuthEmail(email.email.email);
     }, []);
     
 
     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
         setUserName(response.data["display_name"]);
-      });
+    });
 
 
     return(
-      <VStack>
-        <Flex direction="row">
+
+      <Flex direction="column">
         <Box>
             <Heading fontSize="5xl" textAlign="left" fontWeight="bold">
               Welcome, {userName}! 
             </Heading>
+            <Text fontSize={27} mb={10}>Before we start, here are some fun statistics...</Text>
         </Box>
-        </Flex>
-        <Box mt={3} lineHeight="1.5" textAlign="left">
-          <Text fontSize={27} mb={10}>Before we start, here are some fun statistics...</Text>
-        </Box>
-      </VStack>
-        
+      </Flex>
     )
 }
 

@@ -12,9 +12,47 @@ import {
   Button,
   Text,
   useStyleConfig,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import Container from '../../../container';
 import {  useState, useEffect} from 'react';
+
+function MatchDetailsModal() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  return (
+    <>
+      <Button onClick={onOpen}>Open Modal</Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>
+              Sociosqu ultrices viverra venenatis senectus cubilia semSociosqu ultrices viverra venenatis senectus cubilia sem
+            </Text>
+            {/* <Lorem count={2} /> */}
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant='ghost'>Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  )
+}
 
 function ReturnMatchedPerson(original_user) 
 {
@@ -30,9 +68,6 @@ function ReturnMatchedPerson(original_user)
     setOriginalUserEmail(original_user);
     console.log("Hi", originalUserEmail)
   }, [originalUserEmail, setOriginalUserEmail]);
-
-
-
 
   return (
       <Flex direction="column">
@@ -95,4 +130,4 @@ function ReturnMatchedPerson(original_user)
   )
 }
 
-export default ReturnMatchedPerson
+export default MatchDetailsModal
