@@ -19,8 +19,7 @@ import {
 } from '@chakra-ui/icons'
 
 import { useState, useEffect } from 'react';
-
-
+import React from 'react';
 import axios from "axios";
 
 // function Rec()
@@ -46,7 +45,7 @@ import axios from "axios";
 // }
 
 
-function FactItem({ title, fact_data, icon, ...rest}) {
+function FactItem({ title, song_data, icon, ...rest}) {
     const [desktopQuery] = useMediaQuery("(min-width: 700px)");
     const {colorMode, toggleColorMode} = useColorMode();
     const colors = useColorModeValue('#fff', '#000')
@@ -73,7 +72,7 @@ function FactItem({ title, fact_data, icon, ...rest}) {
                 <Box p={2}>
                 <Text fontSize='lg'>{title}</Text>
                 <HStack spacing={4}>
-                    <Text align="justify">{fact_data}</Text>
+                    <Text align="justify">{song_data}</Text>
                 </HStack>
                 </Box>
             </Stack>
@@ -83,118 +82,38 @@ function FactItem({ title, fact_data, icon, ...rest}) {
     )
 }
 
-// function FetchUserInfo ()
-// {
-//     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + localStorage.getItem('email')).then((response) => {
-//         setUserTopGenres(response.data["top_genres"]);
-        
-//         if (userTopGenres)
-//         {
-//             console.log(userTopGenres[0])
-//             setUserFavoriteGenre(userTopGenres[0])
-//         }
-//       });
 
-//     axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" + localStorage.getItem('email')).then((response) => {
-//         setFavArtist(response.data["top_artist"]["name"]);
-//     });
-    
-//     //   {"top_track_from_top_genre"{"name":name, "artist": artist, "images":images}
-//     axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + localStorage.getItem('email')).then((response) => {
-//         setThirdRec(response.data["top_track_from_top_genre"]["name"])
-//         console.log(thirdRec)
-//         setThirdImag(response.data["top_track_from_top_genre"]["images"])
-//       });
-// }
-
-function FactsComponent()
-{
+function FactsComponent({userObject}){
     const {colorMode, toggleColorMode} = useColorMode();
-    const [userData, setUserData] = useState([])
-    const [userFavoriteGenre, setUserFavoriteGenre] = useState("");
-    const [userTopGenres, setUserTopGenres] = useState("");
-    const [userRecTrack, setUserRecTrack] = useState("");
-    const [userFavArtist, setFavArtist] = useState("");
-    const [recTrack, setRecTrack] = useState("");
-    const [recImage, setRecImage] = useState("");
-    const [thirdRec, setThirdRec] = useState("");
-    const [thirdImg, setThirdImag] = useState("");
+    const [userTopGenres, setUserTopGenress] = useState(userObject["data"]["top_genres"]);
+    const [userRecTrackObj, setUserRecTrackObj] = useState(userObject["data"]["recommended_tracks"]);
+    const [userTopArtistObj, setUserTopArtistObj] = useState(userObject["data"]["top_artist"]);
+    const [desktopQuery] = useMediaQuery("(min-width: 700px)");
+    const [isMinWidth, setIsMinWidth] = useState(false);
+    useEffect(() => {
+        if(desktopQuery !== isMinWidth){
+        setIsMinWidth(desktopQuery);
+        }
+    }, [isMinWidth, desktopQuery])
 
-    React.useEffect(() => {
-        var email = localStorage.getItem('email');
-        axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + email).then((response) => {
-            
-            
-            setUserTopGenres(response.data["top_genres"]);
-            
-            if (userTopGenres)
-            {
-                console.log("top genre is " + userTopGenres[0])
-                setUserFavoriteGenre(userTopGenres[0])
-            }else{
-                console.log("top genre is empty")
-            }
-        });
-        axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" +email).then((response) => {
-        setFavArtist(response.data["top_artist"]["name"]);
-
-        });
-
-        //   {"top_track_from_top_genre"{"name":name, "artist": artist, "images":images}
-        axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + email).then((response) => {
-            setThirdRec(response.data["top_track_from_top_genre"]["name"])
-            console.log(thirdRec)
-            setThirdImag(response.data["top_track_from_top_genre"]["images"])
-        });
-
-//     const [desktopQuery] = useMediaQuery("(min-width: 700px)");
-//     const [isMinWidth, setIsMinWidth] = useState(false);
-    
-//     useEffect(() => {
-//         if(desktopQuery !== isMinWidth){
-//         setIsMinWidth(desktopQuery);
-//         }
-//     }, [isMinWidth, desktopQuery])
-    
-//     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + localStorage.getItem('email')).then((response) => {
-//         setUserTopGenres(response.data["top_genres"]);
-//         if (userTopGenres)
-//         {
-//             setUserFavoriteGenre(userTopGenres[0])
-//         }
-//     });
-
-//     axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" + localStorage.getItem('email')).then((response) => {
-//         setFavArtist(response.data["top_artist"]["name"]);
-//     });
-    
-//     axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + localStorage.getItem('email')).then((response) => {
-// >>>>>>> 7516c40018af0e77a8b14c7633f7dfc0bfb03f60
-//         setThirdRec(response.data["top_track_from_top_genre"]["name"])
-//         console.log(thirdRec)
-//         setThirdImag(response.data["top_track_from_top_genre"]["images"])
-    //     });
-    // }, [])
-
-    });
-    
     return (
+    
         <Flex direction="column" my={5}>
             <HStack>
                 <Box mt={-10}>
                 <VStack>
                     <Box>
-                        <FactItem title="Your favorite genre is... " song_data={userFavoriteGenre} icon="../../home-fav-genre.png">
+                        <FactItem title="Your favorite genre is... " song_data={userTopGenres[0]} icon="../../home-fav-genre.png">
                         </FactItem>
                     </Box>
 
                     <Box>
-                        <FactItem title="Your favorite artist is... " song_data={userFavArtist} icon="../../home-fav-artist.png">
+                        <FactItem title="Your favorite artist is... " song_data={userTopArtistObj["artist"]} icon={userTopArtistObj["img_url"]}>
                         </FactItem>
                     </Box>
 
                     <Box>
-                        <FactItem title="Try listening to... " song_data={userRecTrack} icon="../../home-rec-track.png">
+                        <FactItem title="Try listening to... " song_data={userRecTrackObj["track_title"]} icon={userRecTrackObj["img_url"]}>
                         </FactItem>
                     </Box>
                 </VStack>
@@ -207,85 +126,8 @@ function FactsComponent()
                 </Box>
             </HStack>
         </Flex>
+
     )
 }
-
-// function FactsBox ()
-// {
-//     const {colorMode, toggleColorMode} = useColorMode();
-//     const [userTopGenres, setUserTopGenres] = useState("");
-//     const [userFavoriteGenre, setUserFavoriteGenre] = useState("");
-//     const [userRecTrack, setUserRecTrack] = useState("");
-//     const [FavArtist, setFavArtist] = useState("");
-//     const [recTrack, setRecTrack] = useState("");
-//     const [recImage, setRecImage] = useState("");
-//     const [thirdRec, setThirdRec] = useState("");
-//     const [thirdImg, setThirdImag] = useState("");
-
-
->>>>>>> 7516c40018af0e77a8b14c7633f7dfc0bfb03f60
-
-    
-
-<<<<<<< HEAD
-    return(
-        <Flex direction="column">
-        <HStack borderRadius="20px">
-            <Wrap >
-                <WrapItem>
-                    <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
-                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            Your favorite genre is: 
-                             {userFavoriteGenre}
-                        </Text>
-                    </Center>
-                </WrapItem>
-                <WrapItem>
-                    <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
-                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            You favorite artist: {FavArtist}
-                        </Text>    
-                    </Center>
-                    </WrapItem>
-                <WrapItem>
-=======
-//     return(
-//         <Flex direction="column">
-//             <HStack>
-            
-//             <Box>
-//                 <WrapItem>
-//                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
-//                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-//                             Your favorite genre is:
-//                              {userFavoriteGenre}
-//                         </Text>
-//                     </Center>
-//                 </WrapItem>
-//                 <WrapItem>
-//                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
-//                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-//                             You favorite artist: {FavArtist}
-//                         </Text>    
-//                     </Center>
-//                     </WrapItem>
-//                 <WrapItem>
->>>>>>> 7516c40018af0e77a8b14c7633f7dfc0bfb03f60
-                
-//                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
-//                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-//                             You love:  {thirdRec}
-//                         </Text>    
-//                     </Center>
-//                 </WrapItem>
-//             </Box>
-
-//         </HStack>
-//         </Flex>
-//     )
-// }
-
-
-
 
 export default FactsComponent

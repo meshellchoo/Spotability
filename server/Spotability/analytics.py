@@ -56,7 +56,7 @@ def get_top_track_from_top_genre(access_token):
     name = data['items'][0]['name']
     images = data['items'][0]['album']['images'][0]['url']
     
-    return {"name":name, "artist": artist, "images":images}
+    return {"track_title":name, "artist": artist, "img_url":images}
 
 
 def get_top_artist_from_user(access_token):
@@ -67,8 +67,8 @@ def get_top_artist_from_user(access_token):
     
     name = data['items'][0]['name']
     images = data['items'][0]['images'][0]['url']
-    
-    return {"name":name, "images":images}
+
+    return {"artist":name, "img_url":images}
 
 def get_recommended_track(access_token):
     obj = SpotabilityCollection()
@@ -85,7 +85,7 @@ def get_recommended_track(access_token):
     data = response.json()
     track = data['tracks'][0]
     track_info = {
-        "title" : track['name'],
+        "track_title" : track['name'],
         "img_url" : track['album']['images'][-1]["url"],
         "artist" : track['artists'][0]['name']
     }

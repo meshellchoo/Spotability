@@ -22,7 +22,7 @@ def get_a_match(request):
     user_obj.update_and_save(user)
     
     user = user_obj.search_by_email(match)
-    print({"match":(json.loads(dumps(user))),"overlapping_genre":genre})
+
     return JsonResponse({"match":(json.loads(dumps(user))),"overlapping_genre":genre})
 
 
@@ -46,7 +46,6 @@ def like_match(request):
     """
     email = request.GET.get('email')
     liked_match = request.GET.get('liked_match')
-    
     user_obj = SpotabilityCollection()
     user = user_obj.search_by_email(email)
     user['people_who_you_swiped'][liked_match] = liked_match

@@ -24,27 +24,25 @@ import axios from "axios";
 
 import App from "../../../App"
 
-function HomePageTitle(email)
+function HomePageTitle({userObject})
 {
-    console.log("em" , email.email.email)
+    // console.log("em" , email.email.email)
     const [userName, setUserName] = useState("");
     const [authEmail, setAuthEmail ] = useState("");
-    useEffect(() => {
-      setAuthEmail(email.email.email);
-    }, []);
+    console.log("%j",userObject)
     
-
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
-        setUserName(response.data["display_name"]);
-    });
-
+    // React.useEffect(() => {
+    //   axios.get("http://127.0.0.1:8000/spotability/search-by-email?email="+localStorage.getItem('email')).then((response) => {
+    //       setUserName(response.data["display_name"]);
+    //   });
+    // }, [])
 
     return(
 
       <Flex direction="column">
         <Box>
             <Heading fontSize="5xl" textAlign="left" fontWeight="bold">
-              Welcome, {userName}! 
+              Welcome, {userObject["data"]["display_name"]}! 
             </Heading>
             <Text fontSize={27} mb={10}>Before we start, here are some fun statistics...</Text>
         </Box>

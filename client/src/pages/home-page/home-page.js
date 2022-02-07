@@ -35,8 +35,7 @@ import ReturnMatchedPerson from './helper-components/match_details';
 import { useEffect } from 'react';
 
 
-function HomePage (email) {
-  console.log(email, "EMAIL")
+function HomePage ({userObject}) {
   const {colorMode, toggleColorMode} = useColorMode();
   return (
         <VStack mb="50">
@@ -54,15 +53,15 @@ function HomePage (email) {
 
           <Flex direction="column">
             <Box>
-                <HomePageTitle email={email}/>
+                <HomePageTitle userObject={userObject}/>
             </Box>
           
             <Box my={10}>
-                <FactsBox/>
+                <FactsBox userObject={userObject}/>
             </Box>
             <Center>
               <Box alignContent="center" alignSelf="center">
-                  <MatchCard email={email.email}/>
+                  <MatchCard userObject={userObject}/>
                   {/* <ReturnMatchedPerson/> */}
               </Box>
             </Center>

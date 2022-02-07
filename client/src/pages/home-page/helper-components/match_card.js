@@ -50,17 +50,17 @@ function UserInfoLoading() {
 }
 
 
-export default function MatchCard()
+export default function MatchCard({userObject})
 {
-  // const [userEmail, setUserEmail] = useState("")
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [matchButtonClick, setMatchButtonClick] = useState(false);
   const [cancelButtonClick, setCancelButtonClick] = useState(true);
   
-  const [userData, setUserData] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userImage, setUserImage] = useState("");
-  const [userCountry, setUserCountry] = useState("");
+  const [userData, setUserData] = useState(userObject["data"]);
+  const [userName, setUserName] = useState(userData["display_name"]);
+  const [userImage, setUserImage] = useState(userData["img_url"]);
+  const [userCountry, setUserCountry] = useState(userData["country"]);
+  const [userEmail, setUserEmail] = useState(userData["email"]);
   const {colorMode, toggleColorMode} = useColorMode();
 
   const [matchedData, setMatchedData] = useState("");
@@ -71,46 +71,14 @@ export default function MatchCard()
   const [foundMatch, setFoundMatch] = useState(false);
 
   const [nullCheck, setNullCheck] = useState(false);
-
-  const[email,setEmail] = useState("");
   const [matchedPeople, setMatchedPeople] = useState([]);
 
 
   React.useEffect(() => {
-      setEmail(localStorage.getItem('email'))
-      axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + email).then((response) => {
-        updateUserData(response.data);
-        });
-      if (userData) {
-        console.log("userData is "  + userData)
-      }
-
-
-      axios.get("http://127.0.0.1:8000/spotability/get_a_match?email="+email).then((response) => {
+      axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=" + userEmail).then((response) => {
         callResponse(response.data.match);
         });
-      if (userData) {
-        console.log("userData is "  + userData)
-      }
-
-
   }, [])
-
-  function updateUserData(e) {
-        setUserData(e);
-        console.log("userData[display_name]" + userData["display_name"])
-        setUserName(userData["display_name"])
-        setUserImage(userData["img_url"])
-        setUserCountry(userData["country"])
-        // waiting_match_details();
-  }
-
-  // const waiting_match_details = async() => {
-  //   if (foundMatch === false){
-  //     const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email="+email);
-  //     callResponse(response.data.match); 
-  //   }
-  // }
 
   function callResponse(matchedData)
   {
@@ -130,6 +98,12 @@ export default function MatchCard()
     setMatchButtonClick(true);
     setCancelButtonClick(true);
     setNullCheck(true);
+    axios.get("http://127.0.0.1:8000/spotability/like_match?email="+ userEmail + "&liked_match=" + matchedEmail)
+
+  }
+  function handleMatchButtonClick()
+  {
+    axios.get("http://127.0.0.1:8000/spotability/reject_match?email="+ userEmail + "&rejected_match=" + matchedEmail)
   }
 
   function handleCancelButtonClick()
@@ -137,8 +111,6 @@ export default function MatchCard()
     setCancelButtonClick(true);
     setMatchButtonClick(false);
   }
-
-
   return (
     <Flex direction="column" alignContent={"center"}>
     <Stack>
@@ -164,7 +136,6 @@ export default function MatchCard()
                     boxShadow='md'>
                   </Image> : <UserInfoLoading></UserInfoLoading>
                   }
-                 
                   </Box>
                   <Text fontSize="3xl" fontWeight="medium" color="black">
                     {userName}
@@ -224,7 +195,7 @@ export default function MatchCard()
                                     <Button
                                       mt={7}
                                       // spinner={<BeatLoader size={8} color='white' />}
-                                      // onClick={handleMatchButtonClick}
+                                      onClick={handleMatchButtonClick}
                                       
                                       // colorScheme='teal'
                                       variant={colorMode ==='dark'? "solid" : "outline"} 
@@ -237,10 +208,6 @@ export default function MatchCard()
                                     </Button>
                                 </VStack>
                               </Box>
-                            
-                            <Text>
-                              Sociosqu ultrices viverra venenatis senectus cubilia semSociosqu ultrices viverra venenatis senectus cubilia sem
-                            </Text>
                             {/* <Lorem count={2} /> */}
                           </ModalBody>
 
