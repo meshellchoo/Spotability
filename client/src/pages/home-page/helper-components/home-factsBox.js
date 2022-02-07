@@ -68,36 +68,37 @@ function FactsBox ()
     const [thirdRec, setThirdRec] = useState("");
 
     const [thirdImg, setThirdImag] = useState("");
-
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + localStorage.getItem('email')).then((response) => {
-        
-        
-        setUserTopGenres(response.data["top_genres"]);
-        
-        if (userTopGenres)
-        {
-            console.log(userTopGenres[0])
-            setUserFavoriteGenre(userTopGenres[0])
-        }
-      });
-
-      axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" + localStorage.getItem('email')).then((response) => {
+    React.useEffect(() => {
+        var email = localStorage.getItem('email');
+        axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + email).then((response) => {
+            
+            
+            setUserTopGenres(response.data["top_genres"]);
+            
+            if (userTopGenres)
+            {
+                console.log("top genre is " + userTopGenres[0])
+                setUserFavoriteGenre(userTopGenres[0])
+            }else{
+                console.log("top genre is empty")
+            }
+        });
+        axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" +email).then((response) => {
         setFavArtist(response.data["top_artist"]["name"]);
-        
-      });
-      
-    //   {"top_track_from_top_genre"{"name":name, "artist": artist, "images":images}
-      axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + localStorage.getItem('email')).then((response) => {
-        
+
+        });
+
+        //   {"top_track_from_top_genre"{"name":name, "artist": artist, "images":images}
+        axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + email).then((response) => {
+
         setThirdRec(response.data["top_track_from_top_genre"]["name"])
 
         console.log(thirdRec)
 
         setThirdImag(response.data["top_track_from_top_genre"]["images"])
-      });
+        });
+    }, [])
 
-      
-      
     
 
     return(
@@ -107,7 +108,7 @@ function FactsBox ()
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            Your favorite genre is:
+                            Your favorite genre is: 
                              {userFavoriteGenre}
                         </Text>
                     </Center>

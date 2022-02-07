@@ -34,7 +34,6 @@ def spotify_callback(request, format=None):
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET,
     }).json()
-    print("response",response)
     
     access_token = response.get('access_token')
     token_type = response.get('token_type')
