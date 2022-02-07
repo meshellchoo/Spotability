@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
+
 import {
     Box,
     VStack,
     Flex,
     useColorMode,
     Image,
-    IconButton,
-    Heading,
-    Wrap,
-    WrapItem,
-    Center,
-    Button,
     Text,
     Stack,
-    Tag,
+    useMediaQuery,
     Spacer,
     HStack,
     useColorModeValue,
-    Img,
 } from '@chakra-ui/react';
+
 import {
   SunIcon,
   MoonIcon, 
 } from '@chakra-ui/icons'
+
+import { useState, useEffect } from 'react';
 
 
 import axios from "axios";
@@ -51,6 +47,7 @@ import axios from "axios";
 
 
 function FactItem({ title, fact_data, icon, ...rest}) {
+    const [desktopQuery] = useMediaQuery("(min-width: 700px)");
     const {colorMode, toggleColorMode} = useColorMode();
     const colors = useColorModeValue('#fff', '#000')
     const bgColors = useColorModeValue('linear-gradient(315deg, #485461 0%, #28313b 74%)', 'none')
@@ -122,6 +119,15 @@ function FactsComponent()
     const [recImage, setRecImage] = useState("");
     const [thirdRec, setThirdRec] = useState("");
     const [thirdImg, setThirdImag] = useState("");
+
+    const [desktopQuery] = useMediaQuery("(min-width: 700px)");
+    const [isMinWidth, setIsMinWidth] = useState(false);
+    
+    useEffect(() => {
+        if(desktopQuery !== isMinWidth){
+        setIsMinWidth(desktopQuery);
+        }
+    }, [isMinWidth, desktopQuery])
     
     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + localStorage.getItem('email')).then((response) => {
         setUserTopGenres(response.data["top_genres"]);
@@ -142,9 +148,9 @@ function FactsComponent()
     });
     
     return (
-        <Flex direction="column">
+        <Flex direction="column" my={5}>
             <HStack>
-                <Box position="relative">
+                <Box mt={-10}>
                 <VStack>
                     <Box>
                         <FactItem title="Your favorite genre is... " song_data={userFavoriteGenre} icon="../../home-fav-genre.png">
@@ -163,7 +169,11 @@ function FactsComponent()
                 </VStack>
                 </Box>
                 <Spacer/>
-                <Image position="relative" width="450" height="450" src="../../header-component-girl.svg"/>
+                <Box>
+                    <Image 
+                    mt="30px" width="450" height="450" src="../../header-component-girl.svg" 
+                    display={isMinWidth ? "flex" : "none"}/>
+                </Box>
             </HStack>
         </Flex>
     )

@@ -60,11 +60,12 @@ function HomePage (email) {
             <Box>
                 <FactsBox/>
             </Box>
-
-          <Box>
-              <MatchCard email={email.email}/>
-              {/* <ReturnMatchedPerson/> */}
-          </Box>
+            <Center>
+              <Box alignContent="center" alignSelf="center">
+                  <MatchCard email={email.email}/>
+                  {/* <ReturnMatchedPerson/> */}
+              </Box>
+            </Center>
           </Flex>
 
 

@@ -17,20 +17,44 @@ import {
   Img,
   Text,
   useStyleConfig,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 
 import {  useState, useEffect} from 'react';
 
 import axios from "axios";
 
-import {SmallCloseIcon} from "@chakra-ui/icons"
+import {CloseIcon, SmallCloseIcon} from "@chakra-ui/icons"
 import Container from '../../../container';
 import ReturnMatchedPerson from './match_details';
+
+function UserInfoLoading() {
+  return (
+    <VStack>
+      <Box align="center" my={10}>
+      <Heading color="black" size="lg">
+        Loading your profile...
+      </Heading>
+      </Box>
+    <Spinner size="lg" color="black">
+
+    </Spinner>
+    </VStack>
+  )
+}
 
 
 export default function MatchCard()
 {
   // const [userEmail, setUserEmail] = useState("")
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [matchButtonClick, setMatchButtonClick] = useState(false);
   const [cancelButtonClick, setCancelButtonClick] = useState(true);
   
@@ -114,8 +138,8 @@ export default function MatchCard()
 
 
   return (
-    <Container>
-    <Flex direction="column" >
+    <Flex direction="column" alignContent={"center"}>
+    <Stack>
       <HStack spacing={10}>
         <Box
           p="51px"
@@ -136,7 +160,8 @@ export default function MatchCard()
                     w={32}
                     h={32}
                     boxShadow='md'>
-                  </Image> : <Spinner size="lg"/>}
+                  </Image> : <UserInfoLoading></UserInfoLoading>
+                  }
                  
                   </Box>
                   <Text fontSize="3xl" fontWeight="medium" color="black">
@@ -148,45 +173,108 @@ export default function MatchCard()
                     <Box position="relative">
                       <Button
                         mt={5}
-                        // spinner={<BeatLoader size={8} color='white' />}
-                        onClick={handleMatchButtonClick}
-                        isLoading={matchButtonClick ? true: false}
-                        
-                        // colorScheme='teal'
-                        variant={colorMode ==='dark'? "solid" : "outline"} 
+                        onClick={onOpen}
+                        shadow="lg"
+                        variant={colorMode ==='dark'? "solid" : "ghost"} 
                         size="lg"
-                        colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                        colorScheme="pink"
                         border={colorMode ==='dark'? "0px" : "2px"} 
-                        _hover={{color:"pink"}}
                       >
-                        <Text fontWeight="medium" size="1.5xl">Ready to match?</Text>
+                        <Text fontWeight="" size="1.5xl">Ready to match?</Text>
                       </Button>
+                      
+                      <Modal isOpen={isOpen} onClose={onClose}>
+                        <Flex direction="column">
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader>
+                            <Center>
+                            <Button as="heading" isLoading loadingText="Finding you a match..."></Button>
+                            </Center>
+                          </ModalHeader>
+                          
+                          <ModalBody>
+                            <Box
+                              p="35px"
+                              width="300px"
+                              height="500px"
+                              rounded="20px"
+                              shadow="lg"
+                              bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
+                              display={foundMatch === false ? false : true}>
+                              <VStack>
+                                <Heading mb={3} fontSize = "4xl" color="black">
+                                  Your Matches
+                                </Heading>
+                              <Img
+                              src={matchedImage}
+                              borderRadius = "full"
+                              >
+
+                              </Img>
+
+                                <Text fontSize="3xl" fontWeight="medium" color="black">
+                                  {matchedName}
+                                </Text>
+                                <Text fontSize="lg" fontWeight="small" color="black">
+                                  {matchedCountry}
+                                </Text>
+                                    <Button
+                                      mt={7}
+                                      // spinner={<BeatLoader size={8} color='white' />}
+                                      // onClick={handleMatchButtonClick}
+                                      
+                                      // colorScheme='teal'
+                                      variant={colorMode ==='dark'? "solid" : "outline"} 
+                                      size="lg"
+                                      colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                                      border={colorMode ==='dark'? "0px" : "2px"} 
+                                      _hover={{color:"pink"}}
+                                    >
+                                      <Text fontWeight="medium" size="1.5xl">Contact</Text>
+                                    </Button>
+                                </VStack>
+                              </Box>
+                            
+                            <Text>
+                              Sociosqu ultrices viverra venenatis senectus cubilia semSociosqu ultrices viverra venenatis senectus cubilia sem
+                            </Text>
+                            {/* <Lorem count={2} /> */}
+                          </ModalBody>
+
+                          <ModalFooter>
+                            <Center>
+                              <Button
+                                  onClick={onClose}
+                                  borderRadius="full"
+                                  aria-label='Cancel'
+                                  // width={30}
+                                  // height={30}
+                                  variant={colorMode ==='dark'? "solid" : "ghost"} 
+                                  colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                                  rightIcon={<CloseIcon/>}
+                                  border={colorMode ==='dark'? "0px" : "2px"} 
+                                >
+                                  Cancel Search
+                              </Button>
+                            </Center>
+                          </ModalFooter>
+
+                        </ModalContent>
+                        </Flex>
+                      </Modal>
                     </Box>
                     <Box>
                   
                   
 
-                    <IconButton
-                        my={5}
-                        borderRadius="full"
-                        aria-label='Cancel'
-                        width={30}
-                        height={30}
-                        variant={colorMode ==='dark'? "solid" : "outline"} 
-                        colorScheme={colorMode ==='dark'? "pink" : "none"} 
-                        onClick={handleCancelButtonClick}
-                        icon={<SmallCloseIcon/>}
-                        _hover={{color:"pink"}}
-                        border={colorMode ==='dark'? "0px" : "2px"} 
-                      >
-                    </IconButton>
                   </Box>
                   
               </VStack>
               </Flex>
               </Box>
 
-              <Box
+              {/* <Box
                 p="35px"
                 width="300px"
                 height="500px"
@@ -214,7 +302,8 @@ export default function MatchCard()
                       <Button
                         mt={7}
                         // spinner={<BeatLoader size={8} color='white' />}
-                        onClick={handleMatchButtonClick}
+                        // onClick={handleMatchButtonClick}
+                        onClick={<MatchDetailsModal></MatchDetailsModal>}
                         
                         // colorScheme='teal'
                         variant={colorMode ==='dark'? "solid" : "outline"} 
@@ -226,12 +315,13 @@ export default function MatchCard()
                         <Text fontWeight="medium" size="1.5xl">Contact</Text>
                       </Button>
                   </VStack>
-                  </Box>
+                  </Box> */}
                 </HStack>
             
         
+        
+      </Stack>
       </Flex>
-      </Container>
           
   )
 }  
