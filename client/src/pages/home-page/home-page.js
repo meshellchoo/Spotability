@@ -57,7 +57,7 @@ function HomePage (email) {
                 <HomePageTitle email={email}/>
             </Box>
           
-            <Box>
+            <Box my={10}>
                 <FactsBox/>
             </Box>
             <Center>

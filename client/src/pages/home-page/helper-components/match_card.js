@@ -38,10 +38,10 @@ import ReturnMatchedPerson from './match_details';
 function UserInfoLoading() {
   return (
     <VStack>
-      <Box align="center" my={10}>
-      <Heading color="black" size="lg">
-        Loading your profile...
-      </Heading>
+      <Box align="center" my={10} >
+      <Text color="black" fontWeight="medium" fontSize="2xl">
+        One second, we're fetching your profile...
+      </Text>
       </Box>
     <Spinner size="lg" color="black">
 
@@ -142,9 +142,9 @@ export default function MatchCard()
     <Stack>
       <HStack spacing={10}>
         <Box
-          p="51px"
-          width="300px"
-          height="500px"
+          p="30px"
+          // width="300px"
+          // height="500px"
           rounded="20px"
           shadow="lg"
           bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
@@ -183,10 +183,10 @@ export default function MatchCard()
                         <Text fontWeight="" size="1.5xl">Ready to match?</Text>
                       </Button>
                       
-                      <Modal isOpen={isOpen} onClose={onClose}>
+                      <Modal isOpen={isOpen} onClose={onClose} motionPreset="scale" size="full">
                         <Flex direction="column">
                         <ModalOverlay />
-                        <ModalContent>
+                        <ModalContent >
                           <ModalHeader>
                             <Center>
                             <Button as="heading" isLoading loadingText="Finding you a match..."></Button>

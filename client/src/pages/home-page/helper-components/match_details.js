@@ -25,11 +25,9 @@ import Container from '../../../container';
 import {  useState, useEffect} from 'react';
 
 function MatchDetailsModal() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure( {defaultIsOpen: true})
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
