@@ -46,14 +46,14 @@ import {
 
 
     
-function HomePage (auth) {
-    console.log("HP", auth);
+function HomePage (email) {
+    console.log(email, "EMAIL")
     const {colorMode, toggleColorMode} = useColorMode();
   return (
       
     <Container>
         
-        <VStack>
+        <VStack mb="50">
         <Box my={10} p={2}>
           <IconButton 
             size="lg" 
@@ -69,7 +69,7 @@ function HomePage (auth) {
         <Center>
             <Flex direction="column">
         <Box>
-            <HomePageTitle/>
+            <HomePageTitle email={email}/>
         </Box>
         
         <Box>
@@ -77,7 +77,7 @@ function HomePage (auth) {
         </Box>
 
         <Box>
-            <MatchCard auth={auth}/>
+            <MatchCard email={email.email}/>
             {/* <ReturnMatchedPerson/> */}
         </Box>
         </Flex>
@@ -87,9 +87,9 @@ function HomePage (auth) {
 
       
       
-      <Like/>
+      {/* <Like/> */}
 
-      <Dislike/>
+      {/* <Dislike/> */}
       
 
 

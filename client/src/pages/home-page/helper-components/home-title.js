@@ -17,15 +17,23 @@ import {
   MoonIcon, 
 } from '@chakra-ui/icons'
 
+import {useEffect
+} from 'react';
 
 import axios from "axios";
 
 import App from "../../../App"
 
-function HomePageTitle()
+function HomePageTitle(email)
 {
+    console.log("em" , email)  
     const [userName, setUserName] = useState("");
+    const [authEmail, setAuthEmail ] = useState("");
 
+    useEffect(() => {
+      setAuthEmail(authEmail);
+    }, []);
+    
 
     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=candywithonon@ymail.com").then((response) => {
         setUserName(response.data["display_name"]);

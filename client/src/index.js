@@ -28,7 +28,8 @@ ReactDOM.render(
 
         {/* :email means it is a param
 
-        {/* <Route path="/spotability/redirect/" element={<App />} /> */}
+        <Route path="/spotability/redirect/:email" element={<App />} />
+        {/* :email means it is a param */}
       </Routes>  
     </BrowserRouter>
     </ChakraProvider>

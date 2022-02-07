@@ -51,8 +51,6 @@ import App from "../../../App"
 function FactsBox ()
 {
 
-    
-    
     const {colorMode, toggleColorMode} = useColorMode();
 
     const [userTopGenres, setUserTopGenres] = useState("");
@@ -104,12 +102,13 @@ function FactsBox ()
 
     return(
         <Flex direction="column">
-        <HStack>
-            <Wrap>
+        <HStack borderRadius="20px">
+            <Wrap >
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            Your favorite genre is {userFavoriteGenre}
+                            Your favorite genre is:
+                             {userFavoriteGenre}
                         </Text>
                     </Center>
                 </WrapItem>
@@ -130,7 +129,7 @@ function FactsBox ()
                 </WrapItem>
             </Wrap>
 
-            <Image width="400" height="500" src="../header-component-girl.svg">
+            <Image width="400" height="480" src="../../header-component-girl.svg">
 
             </Image>
 
