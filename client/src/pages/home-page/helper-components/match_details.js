@@ -31,9 +31,6 @@ function ReturnMatchedPerson(original_user)
     console.log("Hi", originalUserEmail)
   }, [originalUserEmail, setOriginalUserEmail]);
 
-
-
-
   return (
       <Flex direction="column">
       <Container>

@@ -9,6 +9,7 @@ import {
   Heading,
   Wrap,
   WrapItem,
+  Spinner,
   HStack,
   Center,
   Avatar,
@@ -23,7 +24,6 @@ import {  useState, useEffect} from 'react';
 import axios from "axios";
 
 import {SmallCloseIcon} from "@chakra-ui/icons"
-import Like from './likeButton';
 import Container from '../../../container';
 import ReturnMatchedPerson from './match_details';
 
@@ -127,15 +127,17 @@ export default function MatchCard()
             <Flex alignItems="center">
               <VStack>
                 <Box mt={2}>
-                  <Image 
+                  {userImage ?  <Image 
                     mt={3}
                     src={userImage ? userImage: "none"}
+                    shadow="lg"
                     // src={userImage}
                     rounded='full'
                     w={32}
                     h={32}
                     boxShadow='md'>
-                  </Image>
+                  </Image> : <Spinner size="lg"/>}
+                 
                   </Box>
                   <Text fontSize="3xl" fontWeight="medium" color="black">
                     {userName}
