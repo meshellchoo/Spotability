@@ -14,7 +14,6 @@ def get_top_genre(request):
     query params: 'email' 
     """
     email = request.GET.get('email')
-    print(email)
     obj = SpotabilityCollection()
     user = obj.search_by_email(email)
     return JsonResponse({"top_genre":user['top_genres'][0]})

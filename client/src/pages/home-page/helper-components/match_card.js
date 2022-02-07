@@ -26,9 +26,8 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
-
+import React from 'react';
 import {  useState, useEffect} from 'react';
-
 import axios from "axios";
 
 import {CloseIcon, SmallCloseIcon} from "@chakra-ui/icons"
@@ -73,42 +72,45 @@ export default function MatchCard()
 
   const [nullCheck, setNullCheck] = useState(false);
 
-
+  const[email,setEmail] = useState("");
   const [matchedPeople, setMatchedPeople] = useState([]);
-  // const userEmail = "candywithonon@ymail.com"
-  const userEmail = "xinwng3@gmail.com";
 
-  useEffect(() => {
-    async function handle_user_data() {
-      const url = "http://127.0.0.1:8000/spotability/search-by-email?";
-      const { data } = await axios.get(`${url}email=${userEmail}`, {});
-      // console.log(data);
-      if (data) {
-        updateUserData(data);
+
+  React.useEffect(() => {
+      setEmail(localStorage.getItem('email'))
+      axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + email).then((response) => {
+        updateUserData(response.data);
+        });
+      if (userData) {
+        console.log("userData is "  + userData)
       }
-    }
-    handle_user_data();
-  }, [userData, setUserData]);
 
-  function updateUserData(e) 
-  {
+
+      axios.get("http://127.0.0.1:8000/spotability/get_a_match?email="+email).then((response) => {
+        callResponse(response.data.match);
+        });
+      if (userData) {
+        console.log("userData is "  + userData)
+      }
+
+
+  }, [])
+
+  function updateUserData(e) {
         setUserData(e);
-        console.log(userData);
+        console.log("userData[display_name]" + userData["display_name"])
         setUserName(userData["display_name"])
         setUserImage(userData["img_url"])
         setUserCountry(userData["country"])
-        waiting_match_details();
+        // waiting_match_details();
   }
 
-  const waiting_match_details = async() => {
-    if (foundMatch === false)
-    {
-      const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=xinwng3@gmail.com");
-      callResponse(response.data.match);
-
-     
-    }
-  }
+  // const waiting_match_details = async() => {
+  //   if (foundMatch === false){
+  //     const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email="+email);
+  //     callResponse(response.data.match); 
+  //   }
+  // }
 
   function callResponse(matchedData)
   {

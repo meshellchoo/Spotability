@@ -120,31 +120,62 @@ function FactsComponent()
     const [thirdRec, setThirdRec] = useState("");
     const [thirdImg, setThirdImag] = useState("");
 
-    const [desktopQuery] = useMediaQuery("(min-width: 700px)");
-    const [isMinWidth, setIsMinWidth] = useState(false);
-    
-    useEffect(() => {
-        if(desktopQuery !== isMinWidth){
-        setIsMinWidth(desktopQuery);
-        }
-    }, [isMinWidth, desktopQuery])
-    
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + localStorage.getItem('email')).then((response) => {
-        setUserTopGenres(response.data["top_genres"]);
-        if (userTopGenres)
-        {
-            setUserFavoriteGenre(userTopGenres[0])
-        }
-    });
-
-    axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" + localStorage.getItem('email')).then((response) => {
+    React.useEffect(() => {
+        var email = localStorage.getItem('email');
+        axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + email).then((response) => {
+            
+            
+            setUserTopGenres(response.data["top_genres"]);
+            
+            if (userTopGenres)
+            {
+                console.log("top genre is " + userTopGenres[0])
+                setUserFavoriteGenre(userTopGenres[0])
+            }else{
+                console.log("top genre is empty")
+            }
+        });
+        axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" +email).then((response) => {
         setFavArtist(response.data["top_artist"]["name"]);
-    });
+
+        });
+
+        //   {"top_track_from_top_genre"{"name":name, "artist": artist, "images":images}
+        axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + email).then((response) => {
+            setThirdRec(response.data["top_track_from_top_genre"]["name"])
+            console.log(thirdRec)
+            setThirdImag(response.data["top_track_from_top_genre"]["images"])
+        });
+
+//     const [desktopQuery] = useMediaQuery("(min-width: 700px)");
+//     const [isMinWidth, setIsMinWidth] = useState(false);
     
-    axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + localStorage.getItem('email')).then((response) => {
-        setThirdRec(response.data["top_track_from_top_genre"]["name"])
-        console.log(thirdRec)
-        setThirdImag(response.data["top_track_from_top_genre"]["images"])
+//     useEffect(() => {
+//         if(desktopQuery !== isMinWidth){
+//         setIsMinWidth(desktopQuery);
+//         }
+//     }, [isMinWidth, desktopQuery])
+    
+//     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + localStorage.getItem('email')).then((response) => {
+//         setUserTopGenres(response.data["top_genres"]);
+//         if (userTopGenres)
+//         {
+//             setUserFavoriteGenre(userTopGenres[0])
+//         }
+//     });
+
+//     axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" + localStorage.getItem('email')).then((response) => {
+//         setFavArtist(response.data["top_artist"]["name"]);
+//     });
+    
+//     axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + localStorage.getItem('email')).then((response) => {
+// >>>>>>> 7516c40018af0e77a8b14c7633f7dfc0bfb03f60
+//         setThirdRec(response.data["top_track_from_top_genre"]["name"])
+//         console.log(thirdRec)
+//         setThirdImag(response.data["top_track_from_top_genre"]["images"])
+    //     });
+    // }, [])
+
     });
     
     return (
@@ -192,11 +223,32 @@ function FactsComponent()
 //     const [thirdImg, setThirdImag] = useState("");
 
 
+>>>>>>> 7516c40018af0e77a8b14c7633f7dfc0bfb03f60
 
-      
-      
     
 
+<<<<<<< HEAD
+    return(
+        <Flex direction="column">
+        <HStack borderRadius="20px">
+            <Wrap >
+                <WrapItem>
+                    <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
+                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
+                            Your favorite genre is: 
+                             {userFavoriteGenre}
+                        </Text>
+                    </Center>
+                </WrapItem>
+                <WrapItem>
+                    <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
+                        <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
+                            You favorite artist: {FavArtist}
+                        </Text>    
+                    </Center>
+                    </WrapItem>
+                <WrapItem>
+=======
 //     return(
 //         <Flex direction="column">
 //             <HStack>
@@ -218,6 +270,7 @@ function FactsComponent()
 //                     </Center>
 //                     </WrapItem>
 //                 <WrapItem>
+>>>>>>> 7516c40018af0e77a8b14c7633f7dfc0bfb03f60
                 
 //                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
 //                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
