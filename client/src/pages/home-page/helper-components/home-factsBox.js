@@ -71,31 +71,31 @@ function FactsBox ()
 
     const [thirdImg, setThirdImag] = useState("");
 
-
-
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + App.email).then((response) => {
+    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + localStorage.getItem('email')).then((response) => {
         
         
         setUserTopGenres(response.data["top_genres"]);
         
         if (userTopGenres)
         {
+            console.log(userTopGenres[0])
             setUserFavoriteGenre(userTopGenres[0])
         }
       });
 
-      axios.get("http://127.0.0.1:8000/spotability/top_artist?email=" + App.email).then((response) => {
-        setFavArtist(response.data["name"]);
+      axios.get("http://127.0.0.1:8000/spotability/get_top_artist?email=" + localStorage.getItem('email')).then((response) => {
+        setFavArtist(response.data["top_artist"]["name"]);
         
       });
-
-      axios.get("http://localhost:8000/spotability/top_track?email=" + App.email).then((response) => {
+      
+    //   {"top_track_from_top_genre"{"name":name, "artist": artist, "images":images}
+      axios.get("http://localhost:8000/spotability/get_top_track_from_top_genre?email=" + localStorage.getItem('email')).then((response) => {
         
-        setThirdRec(response.data["name"])
+        setThirdRec(response.data["top_track_from_top_genre"]["name"])
 
         console.log(thirdRec)
 
-        setThirdImag(response.data["images"])
+        setThirdImag(response.data["top_track_from_top_genre"]["images"])
       });
 
       

@@ -2,28 +2,15 @@ from os import access
 from django.shortcuts import  redirect
 from django.http import JsonResponse
 from admin.settings import REDIRECT_URI, CLIENT_SECRET, CLIENT_ID
-from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
 from Spotability.data_collection import get_top_genres, get_user_info
 from Spotability.database import add_new_user
 from django.shortcuts import redirect
-# from .util import get_user_tokens, is_spotify_authenticated, update_or_create_user_tokens
 
-# class AuthURL(APIView):
-#     def get(self,request,format=None):
-#         # check for scopes here -> https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-#         scopes = 'user-read-private user-read-email user-top-read'
-#         url = Request('GET','https://accounts.spotify.com/authorize',params={
-#             'scope': scopes,
-#             'response_type': 'code',
-#             'redirect_uri': REDIRECT_URI,
-#             'client_id' : CLIENT_ID,
-            
-#         }).prepare.url
-#         return Response({'url':url}, status=status.HTTP_200_OK)
-        
+from Spotability.analytics import get_top_artist_from_user, get_top_track_from_top_genre, get_recommended_track
+
 def get(request):
     # check for scopes here -> https://developer.spotify.com/documentation/general/guides/authorization/scopes/
     scopes = 'user-read-private user-read-email user-top-read'
@@ -72,6 +59,9 @@ def spotify_callback(request, format=None):
             "people_who_you_swiped":{},
             "mutual_swipes": {} ,
             "previously_seen": {},
+            "top_artist" :get_top_artist_from_user(access_token),
+            "top_track_from_top_genre" :get_top_track_from_top_genre(access_token),
+            "recommended_tracks" : get_recommended_track(access_token)
     }
     
 

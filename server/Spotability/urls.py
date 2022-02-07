@@ -1,5 +1,5 @@
 from django.urls import path
-from .analytics import get_top_genre,get_top_track_from_top_genre,get_recommended_track, get_top_artist_from_user
+from .analytics import get_top_genre,get_top_track,get_recommended_tracks, get_top_artist
 from .matchmaking import get_a_match, like_match, reject_match, get_your_mutuals
 from .views import get, spotify_callback
 
@@ -18,13 +18,13 @@ urlpatterns = [
     path('get_your_mutuals/',get_your_mutuals),
     # Learn more about your self
     path('get_top_genre',get_top_genre),
-    path('get_top_track_from_top_genre',get_top_track_from_top_genre),
-    path('get_recommended_track',get_recommended_track),
+    path('get_top_track_from_top_genre',get_top_track),
+    path('get_recommended_track',get_recommended_tracks),
     # path('is-authenticated/', isAuthenticated.as_view()),
     path('test/', test),
 
-    path('top_track', get_top_track_from_top_genre),
-    path('top_artist', get_top_artist_from_user),
+    # path('top_track', get_top_track_from_top_genre),
+    path('get_top_artist', get_top_artist),
     path('add_dummy', add_dummy_data),
 
 ]

@@ -3,7 +3,6 @@ import random
 from pymongo import MongoClient
 from django.http import JsonResponse
 from admin.settings import MONGODB_URL
-from Spotability.serializers import UserSerializer
 from bson.json_util import dumps
 
 

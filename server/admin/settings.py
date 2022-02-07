@@ -29,14 +29,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('DJANGO_SECRET_KEY')
-# DB_PASS = env('MONGODB_PASSWORD')
 CLIENT_ID = env('SPOTIFY_CLIENT_ID')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-CLIENT_ID = env('SPOTIFY_CLIENT_ID')
 CLIENT_SECRET = env('SPOTIFY_SECRET')
 REDIRECT_URI = env('REDIRECT_URI')
 MONGODB_URL = env('MONGODB_URL')
+SPOTIFY_BASE_URL = 'https://api.spotify.com/v1'
+
 ALLOWED_HOSTS = ['*']
 
 
