@@ -23,11 +23,9 @@ import {  useState, useEffect} from 'react';
 import axios from "axios";
 
 import {SmallCloseIcon} from "@chakra-ui/icons"
-
+import Like from './likeButton';
 import Container from '../../../container';
 import ReturnMatchedPerson from './match_details';
-
-
 
 
 export default function MatchCard()
@@ -49,10 +47,12 @@ export default function MatchCard()
   const [matchedEmail, setMatchedEmail] = useState("");
   const [foundMatch, setFoundMatch] = useState(false);
 
+  const [nullCheck, setNullCheck] = useState(false);
+
 
   const [matchedPeople, setMatchedPeople] = useState([]);
   // const userEmail = "candywithonon@ymail.com"
-  const userEmail = "jengrung2255@gmail.com";
+  const userEmail = "xinwng3@gmail.com";
 
   useEffect(() => {
     async function handle_user_data() {
@@ -77,25 +77,33 @@ export default function MatchCard()
   }
 
   const waiting_match_details = async() => {
-    if (foundMatch !== true)
+    if (foundMatch === false)
     {
-      const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=jengrung2255@gmail.com");
-      setMatchedData(response.data.match);
-      console.log(matchedData);
-      setMatchedName(matchedData.display_name)
+      const response = await axios.get("http://127.0.0.1:8000/spotability/get_a_match?email=xinwng3@gmail.com");
+      callResponse(response.data.match);
+
+     
+    }
+  }
+
+  function callResponse(matchedData)
+  {
+      console.log("Found")
+      setFoundMatch(true);
+      setMatchButtonClick(false);
+      setNullCheck(matchedData);
+      setMatchedData(matchedData);
+      setMatchedName(matchedData["display_name"])
       setMatchedImage(matchedData["img_url"])
       setMatchedCountry(matchedData["country"])
       setMatchedEmail(matchedData["email"])
-      // setFoundMatch(true);
-    }
-
   }
-
 
   function handleMatchButtonClick()
   {
-    setMatchButtonClick(!foundMatch);
+    setMatchButtonClick(true);
     setCancelButtonClick(true);
+    setNullCheck(true);
   }
 
   function handleCancelButtonClick()
@@ -157,11 +165,9 @@ export default function MatchCard()
                   
 
                     <IconButton
-                        // spinner={<BeatLoader size={8} color='white' />}
                         my={5}
                         borderRadius="full"
                         aria-label='Cancel'
-                        // display={cancelButtonClick ? false: true}
                         width={30}
                         height={30}
                         variant={colorMode ==='dark'? "solid" : "outline"} 
@@ -178,9 +184,8 @@ export default function MatchCard()
               </Flex>
               </Box>
 
-              
               <Box
-                p="50px"
+                p="35px"
                 width="300px"
                 height="500px"
                 rounded="20px"
@@ -188,25 +193,41 @@ export default function MatchCard()
                 bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
                 display={foundMatch === false ? false : true}>
                 <VStack>
+                  <Heading mb={3} fontSize = "4xl" color="black">
+                    Your Matches
+                  </Heading>
                 <Img
                 src={matchedImage}
                 borderRadius = "full"
                 >
+
                 </Img>
-                
+
                   <Text fontSize="3xl" fontWeight="medium" color="black">
                     {matchedName}
                   </Text>
-                  <Text fontSize="xl" fontWeight="small" color="black">
+                  <Text fontSize="lg" fontWeight="small" color="black">
                     {matchedCountry}
                   </Text>
-                  
+                      <Button
+                        mt={7}
+                        // spinner={<BeatLoader size={8} color='white' />}
+                        onClick={handleMatchButtonClick}
+                        
+                        // colorScheme='teal'
+                        variant={colorMode ==='dark'? "solid" : "outline"} 
+                        size="lg"
+                        colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                        border={colorMode ==='dark'? "0px" : "2px"} 
+                        _hover={{color:"pink"}}
+                      >
+                        <Text fontWeight="medium" size="1.5xl">Contact</Text>
+                      </Button>
                   </VStack>
                   </Box>
                 </HStack>
             
         
-    
       </Flex>
       </Container>
           

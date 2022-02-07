@@ -16,7 +16,7 @@ function Title()
         
         <Box mt={3} lineHeight="1.5" textAlign="justify">
           <Text>
-              Fames vulputate sollicitudin sociosqu nulla adipiscing ac ultricies habitant faucibus risus, penatibus aliquet iaculis interdum nostra tortor dictum morbi mus. Vivamus venenatis ornare sollicitudin aptent diam amet metus consectetur tellus sed euismod aliquam, pharetra aenean mus praesent hendrerit sociosqu donec semper eu phasellus magna. Nulla placerat iaculis lacinia blandit lacus congue dis lectus, mattis pretium rutrum ornare sem efficitur est, tempor erat ridiculus ad mauris sodales quis. Dictum venenatis purus adipiscing odio fringilla phasellus augue nullam vel mauris magnis enim, ac ligula magna arcu cubilia convallis lorem ut ipsum fusce tempor. Facilisis felis iaculis imperdiet dapibus mauris metus finibus eros bibendum, dui malesuada pretium sapien sociosqu nulla himenaeos urna. 
+            Spotability aims to match two users together based on similar music taste. We track the user's top artists, top songs, and genre. On top of that, the app serves to pair you with other users that also share a similar taste in music. With all that information stored in our MongoDB database, the goal is to bring those who enjoy similar types of music together. The app also has a query for disliked people, and will not show users any matches they previously disliked.
             </Text>
           </Box>
       </Flex>

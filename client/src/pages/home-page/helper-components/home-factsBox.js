@@ -51,8 +51,6 @@ import App from "../../../App"
 function FactsBox ()
 {
 
-    
-    
     const {colorMode, toggleColorMode} = useColorMode();
 
     const [userTopGenres, setUserTopGenres] = useState("");
@@ -73,9 +71,7 @@ function FactsBox ()
 
 
 
-    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=" + App.email).then((response) => {
-        
-        
+    axios.get("http://127.0.0.1:8000/spotability/search-by-email?email=xinwng3@gmail.com" ).then((response) => {
         setUserTopGenres(response.data["top_genres"]);
         
         if (userTopGenres)
@@ -84,12 +80,12 @@ function FactsBox ()
         }
       });
 
-      axios.get("http://127.0.0.1:8000/spotability/top_artist?email=" + App.email).then((response) => {
+      axios.get("http://127.0.0.1:8000/spotability/top_artist?email=xinwng3@gmail.com" ).then((response) => {
         setFavArtist(response.data["name"]);
         
       });
 
-      axios.get("http://localhost:8000/spotability/top_track?email=" + App.email).then((response) => {
+      axios.get("http://localhost:8000/spotability/top_track?email=xinwng3@gmail.com" ).then((response) => {
         
         setThirdRec(response.data["name"])
 
@@ -104,12 +100,13 @@ function FactsBox ()
 
     return(
         <Flex direction="column">
-        <HStack>
-            <Wrap>
+        <HStack borderRadius="20px">
+            <Wrap >
                 <WrapItem>
                     <Center w='150px' h='250px' bg={colorMode ==='dark'? "pink" : "#ffffff"}>
                         <Text textAlign='center' fontWeight='bold' color={colorMode ==='dark'? "black" : "black"}>
-                            Your favorite genre is {userFavoriteGenre}
+                            Your favorite genre is:
+                             {userFavoriteGenre}
                         </Text>
                     </Center>
                 </WrapItem>
@@ -130,7 +127,7 @@ function FactsBox ()
                 </WrapItem>
             </Wrap>
 
-            <Image width="400" height="500" src="../header-component-girl.svg">
+            <Image width="400" height="480" src="../../header-component-girl.svg">
 
             </Image>
 
