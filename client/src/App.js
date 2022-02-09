@@ -24,11 +24,6 @@ function App() {
   const [userObject, setUserObject] = useState({});
   const [isLoading, setLoading] = useState(true);
   const { email } = useParams() // <-check if it's undefined, if it is just hardcode email
-  
-  // set the email you get from backend to your local storage
-  localStorage.setItem('email', email);
-  // now you can acccess your localstorage anywhere frontend using this command 
-  localStorage.getItem('email'); 
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/spotability/search-by-email?email="+email).then(( data ) => {
         setUserObject(data);

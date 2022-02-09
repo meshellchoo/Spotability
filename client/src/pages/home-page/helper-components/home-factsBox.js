@@ -72,7 +72,7 @@ function FactItem({ title, song_data, icon, ...rest}) {
                 <Box p={2}>
                 <Text fontSize='lg'>{title}</Text>
                 <HStack spacing={4}>
-                    <Text align="justify">{song_data}</Text>
+                    <Text fontSize='lg' align="justify">{song_data}</Text>
                 </HStack>
                 </Box>
             </Stack>

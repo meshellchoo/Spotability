@@ -68,6 +68,7 @@ export default function MatchCard({userObject})
   const [matchedImage, setMatchedImage] = useState("");
   const [matchedCountry, setMatchedCountry] = useState("");
   const [matchedEmail, setMatchedEmail] = useState("");
+  const [matchedGenre, setMatchedGenre] = useState("");
   const [foundMatch, setFoundMatch] = useState(false);
 
   const [nullCheck, setNullCheck] = useState(false);
@@ -91,6 +92,7 @@ export default function MatchCard({userObject})
       setMatchedImage(matchedData["img_url"])
       setMatchedCountry(matchedData["country"])
       setMatchedEmail(matchedData["email"])
+      setMatchedGenre(matchedData["overlapping_genre"])
   }
 
   function handleMatchButtonClick()
@@ -156,34 +158,33 @@ export default function MatchCard({userObject})
                         <Text fontWeight="" size="1.5xl">Ready to match?</Text>
                       </Button>
                       
-                      <Modal isOpen={isOpen} onClose={onClose} motionPreset="scale" size="full">
+                      <Modal isOpen={isOpen} onClose={onClose} motionPreset="scale" size="full"  >
                         <Flex direction="column">
                         <ModalOverlay />
-                        <ModalContent >
-                          <ModalHeader>
+                        <ModalContent bg={(colorMode === 'dark' ? '#121212' : '#fcd5ce')}>
+                          <ModalHeader >
                             <Center>
-                            <Button as="heading" isLoading loadingText="Finding you a match..."></Button>
+                            {/* <Button as="heading" isLoading loadingText="Match Found"></Button> */}
                             </Center>
                           </ModalHeader>
-                          
-                          <ModalBody>
-                            <Box
-                              p="35px"
-                              width="300px"
-                              height="500px"
-                              rounded="20px"
-                              shadow="lg"
-                              bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
-                              display={foundMatch === false ? false : true}>
-                              <VStack>
-                                <Heading mb={3} fontSize = "4xl" color="black">
-                                  Your Matches
-                                </Heading>
-                              <Img
-                              src={matchedImage}
-                              borderRadius = "full"
-                              >
-
+                            <ModalBody >
+                            <Center>
+                              <Box
+                                p="35px"
+                                width="300px"
+                                height="500px"
+                                rounded="20px"
+                                shadow="lg"
+                                bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
+                                display={foundMatch === false ? false : true}>
+                                <VStack>
+                                  <Heading mb={3} fontSize = "4xl" color="black">
+                                    Your Matches
+                                  </Heading>
+                                <Img
+                                src={matchedImage}
+                                borderRadius = "full"
+                                >
                               </Img>
 
                                 <Text fontSize="3xl" fontWeight="medium" color="black">
@@ -208,7 +209,32 @@ export default function MatchCard({userObject})
                                     </Button>
                                 </VStack>
                               </Box>
-                            {/* <Lorem count={2} /> */}
+                            </Center>
+                            <Center>
+                            <Box
+                              w='40%'
+                              p={5}
+                              bgColor="pink"
+                              color="black"
+                              borderColor={colorMode === 'dark' ? 'none' : 'pink.200'}
+                              shadow="lg"
+                              my={35}
+                              borderRadius="20px"
+                              borderWidth="1.5px"
+                              // borderWidth={colorMode==='dark' ? '2.5px' : "none"}
+                              >
+                              <Center>
+                                <Text fontSize="3xl" fontWeight="medium" color="black">
+                                      The genre that brings you both together is
+                                </Text>
+                              </Center>
+                              <Center>
+                                <Text fontSize="3xl" fontWeight="medium" color="black" >
+                                        {matchedGenre}
+                                </Text> 
+                              </Center>
+                              </Box>
+                              </Center>
                           </ModalBody>
 
                           <ModalFooter>
