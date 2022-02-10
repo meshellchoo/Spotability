@@ -24,7 +24,7 @@ import {
 
 // Components
 import Container from '../../container';
-import MatchCard from './helper-components/match_card';
+import MatchModal from './helper-components/match_modal';
 
 import axios from "axios";
 
@@ -61,7 +61,7 @@ function HomePage ({userObject}) {
             </Box>
             <Center>
               <Box alignContent="center" alignSelf="center">
-                  <MatchCard userObject={userObject}/>
+                  <MatchModal userObject={userObject}/>
                   {/* <ReturnMatchedPerson/> */}
               </Box>
             </Center>

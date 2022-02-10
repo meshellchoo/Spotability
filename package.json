@@ -4,6 +4,8 @@
     "@fontsource/raleway": "^4.5.2",
     "axios": "^0.25.0",
     "axios-delay": "^1.0.0-rc6",
+    "framer": "^2.0.0",
+    "react-card-rotate-swiper": "0.0.14",
     "react-loader-spinner": "^5.1.2"
   }
 }
