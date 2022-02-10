@@ -33,6 +33,7 @@ import axios from "axios";
 import {CloseIcon, SmallCloseIcon} from "@chakra-ui/icons"
 import Container from '../../../container';
 import ReturnMatchedPerson from './match_details';
+import { CardSwiper } from "react-card-rotate-swiper";
 
 function UserInfoLoading() {
   return (
@@ -103,7 +104,7 @@ export default function MatchCard({userObject})
     axios.get("http://127.0.0.1:8000/spotability/like_match?email="+ userEmail + "&liked_match=" + matchedEmail)
 
   }
-  function handleMatchButtonClick()
+  function handleRejectButtonClick()
   {
     axios.get("http://127.0.0.1:8000/spotability/reject_match?email="+ userEmail + "&rejected_match=" + matchedEmail)
   }
@@ -113,210 +114,225 @@ export default function MatchCard({userObject})
     setCancelButtonClick(true);
     setMatchButtonClick(false);
   }
+  const handleSwipe = (direction,match) => {
+    console.log("swiped")
+    console.log("direction: "+ direction)
+    console.log("match: " + match)
+    if(direction == "left"){
+      handleRejectButtonClick()
+    }else{
+      handleMatchButtonClick()
+    }
+  };
   return (
-    <Flex direction="column" alignContent={"center"}>
-    <Stack>
-      <HStack spacing={10}>
-        <Box
-          p="30px"
-          // width="300px"
-          // height="500px"
-          rounded="20px"
-          shadow="lg"
-          bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
-            <Flex alignItems="center">
-              <VStack>
-                <Box mt={2}>
-                  {userImage ?  <Image 
-                    mt={3}
-                    src={userImage ? userImage: "none"}
-                    shadow="lg"
-                    // src={userImage}
-                    rounded='full'
-                    w={32}
-                    h={32}
-                    boxShadow='md'>
-                  </Image> : <UserInfoLoading></UserInfoLoading>
-                  }
-                  </Box>
-                  <Text fontSize="3xl" fontWeight="medium" color="black">
-                    {userName}
-                  </Text>
-                  <Text fontSize="xl" fontWeight="small" color="black">
-                    {userCountry}
-                  </Text>
-                    <Box position="relative">
-                      <Button
-                        mt={5}
-                        onClick={onOpen}
-                        shadow="lg"
-                        variant={colorMode ==='dark'? "solid" : "ghost"} 
-                        size="lg"
-                        colorScheme="pink"
-                        border={colorMode ==='dark'? "0px" : "2px"} 
-                      >
-                        <Text fontWeight="" size="1.5xl">Ready to match?</Text>
-                      </Button>
-                      
-                      <Modal isOpen={isOpen} onClose={onClose} motionPreset="scale" size="full"  >
-                        <Flex direction="column">
-                        <ModalOverlay />
-                        <ModalContent bg={(colorMode === 'dark' ? '#121212' : '#fcd5ce')}>
-                          <ModalHeader >
-                            <Center>
-                            {/* <Button as="heading" isLoading loadingText="Match Found"></Button> */}
-                            </Center>
-                          </ModalHeader>
-                            <ModalBody >
-                            <Center>
-                              <Box
-                                p="35px"
-                                width="300px"
-                                height="500px"
-                                rounded="20px"
-                                shadow="lg"
-                                bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
-                                display={foundMatch === false ? false : true}>
-                                <VStack>
-                                  <Heading mb={3} fontSize = "4xl" color="black">
-                                    Your Matches
-                                  </Heading>
-                                <Img
-                                src={matchedImage}
-                                borderRadius = "full"
-                                >
-                              </Img>
-
-                                <Text fontSize="3xl" fontWeight="medium" color="black">
-                                  {matchedName}
-                                </Text>
-                                <Text fontSize="lg" fontWeight="small" color="black">
-                                  {matchedCountry}
-                                </Text>
-                                    <Button
-                                      mt={7}
-                                      // spinner={<BeatLoader size={8} color='white' />}
-                                      onClick={handleMatchButtonClick}
-                                      
-                                      // colorScheme='teal'
-                                      variant={colorMode ==='dark'? "solid" : "outline"} 
-                                      size="lg"
-                                      colorScheme={colorMode ==='dark'? "pink" : "none"} 
-                                      border={colorMode ==='dark'? "0px" : "2px"} 
-                                      _hover={{color:"pink"}}
-                                    >
-                                      <Text fontWeight="medium" size="1.5xl">Contact</Text>
-                                    </Button>
-                                </VStack>
-                              </Box>
-                            </Center>
-                            <Center>
-                            <Box
-                              w='40%'
-                              p={5}
-                              bgColor="pink"
-                              color="black"
-                              borderColor={colorMode === 'dark' ? 'none' : 'pink.200'}
-                              shadow="lg"
-                              my={35}
-                              borderRadius="20px"
-                              borderWidth="1.5px"
-                              // borderWidth={colorMode==='dark' ? '2.5px' : "none"}
-                              >
-                              <Center>
-                                <Text fontSize="3xl" fontWeight="medium" color="black">
-                                      The genre that brings you both together is
-                                </Text>
-                              </Center>
-                              <Center>
-                                <Text fontSize="3xl" fontWeight="medium" color="black" >
-                                        {matchedGenre}
-                                </Text> 
-                              </Center>
-                              </Box>
-                              </Center>
-                          </ModalBody>
-
-                          <ModalFooter>
-                            <Center>
-                              <Button
-                                  onClick={onClose}
-                                  borderRadius="full"
-                                  aria-label='Cancel'
-                                  // width={30}
-                                  // height={30}
-                                  variant={colorMode ==='dark'? "solid" : "ghost"} 
-                                  colorScheme={colorMode ==='dark'? "pink" : "none"} 
-                                  rightIcon={<CloseIcon/>}
-                                  border={colorMode ==='dark'? "0px" : "2px"} 
-                                >
-                                  Cancel Search
-                              </Button>
-                            </Center>
-                          </ModalFooter>
-
-                        </ModalContent>
-                        </Flex>
-                      </Modal>
-                    </Box>
-                    <Box>
-                  
-                  
-
-                  </Box>
-                  
-              </VStack>
-              </Flex>
-              </Box>
-
-              {/* <Box
-                p="35px"
-                width="300px"
-                height="500px"
-                rounded="20px"
-                shadow="lg"
-                bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
-                display={foundMatch === false ? false : true}>
+    
+      <Flex direction="column" alignContent={"center"}>
+      <Stack>
+        <HStack spacing={10}>
+          <Box
+            p="30px"
+            // width="300px"
+            // height="500px"
+            rounded="20px"
+            shadow="lg"
+            bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}>
+              <Flex alignItems="center">
                 <VStack>
-                  <Heading mb={3} fontSize = "4xl" color="black">
-                    Your Matches
-                  </Heading>
-                <Img
-                src={matchedImage}
-                borderRadius = "full"
-                >
-
-                </Img>
-
-                  <Text fontSize="3xl" fontWeight="medium" color="black">
-                    {matchedName}
-                  </Text>
-                  <Text fontSize="lg" fontWeight="small" color="black">
-                    {matchedCountry}
-                  </Text>
-                      <Button
-                        mt={7}
-                        // spinner={<BeatLoader size={8} color='white' />}
-                        // onClick={handleMatchButtonClick}
-                        onClick={<MatchDetailsModal></MatchDetailsModal>}
+                  <Box mt={2}>
+                    {userImage ?  <Image 
+                      mt={3}
+                      src={userImage ? userImage: "none"}
+                      shadow="lg"
+                      // src={userImage}
+                      rounded='full'
+                      w={32}
+                      h={32}
+                      boxShadow='md'>
+                    </Image> : <UserInfoLoading></UserInfoLoading>
+                    }
+                    </Box>
+                    <Text fontSize="3xl" fontWeight="medium" color="black">
+                      {userName}
+                    </Text>
+                    <Text fontSize="xl" fontWeight="small" color="black">
+                      {userCountry}
+                    </Text>
+                      <Box position="relative">
+                        <Button
+                          mt={5}
+                          onClick={onOpen}
+                          shadow="lg"
+                          variant={colorMode ==='dark'? "solid" : "ghost"} 
+                          size="lg"
+                          colorScheme="pink"
+                          border={colorMode ==='dark'? "0px" : "2px"} 
+                        >
+                          <Text fontWeight="" size="1.5xl">Ready to match?</Text>
+                        </Button>
                         
-                        // colorScheme='teal'
-                        variant={colorMode ==='dark'? "solid" : "outline"} 
-                        size="lg"
-                        colorScheme={colorMode ==='dark'? "pink" : "none"} 
-                        border={colorMode ==='dark'? "0px" : "2px"} 
-                        _hover={{color:"pink"}}
-                      >
-                        <Text fontWeight="medium" size="1.5xl">Contact</Text>
-                      </Button>
-                  </VStack>
-                  </Box> */}
-                </HStack>
-            
-        
-        
-      </Stack>
-      </Flex>
+                        <Modal isOpen={isOpen} onClose={onClose} motionPreset="scale" size="full"  >
+                          <Flex direction="column">
+                          <ModalOverlay />
+                          <ModalContent bg={(colorMode === 'dark' ? '#121212' : '#fcd5ce')}>
+                            <ModalHeader >
+                              <Center>
+                              {/* <Button as="heading" isLoading loadingText="Match Found"></Button> */}
+                              </Center>
+                            </ModalHeader>
+                              <ModalBody >
+                                <CardSwiper
+                                  onSwipe={(e) => handleSwipe(e,matchedEmail)}
+                                  contents={
+                                    <Center>
+                                      <Box
+                                        p="35px"
+                                        width="300px"
+                                        height="500px"
+                                        rounded="20px"
+                                        shadow="lg"
+                                        bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
+                                        display={foundMatch === false ? false : true}>
+                                        <VStack>
+                                          <Heading mb={3} fontSize = "4xl" color="black">
+                                            Your Matches
+                                          </Heading>
+                                        <Img
+                                        src={matchedImage}
+                                        borderRadius = "full"
+                                        >
+                                      </Img>
+
+                                        <Text fontSize="3xl" fontWeight="medium" color="black">
+                                          {matchedName}
+                                        </Text>
+                                        <Text fontSize="lg" fontWeight="small" color="black">
+                                          {matchedCountry}
+                                        </Text>
+                                            {/* <Button
+                                              mt={7}
+                                              // spinner={<BeatLoader size={8} color='white' />}
+                                              onClick={handleMatchButtonClick}
+                                              
+                                              // colorScheme='teal'
+                                              variant={colorMode ==='dark'? "solid" : "outline"} 
+                                              size="lg"
+                                              colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                                              border={colorMode ==='dark'? "0px" : "2px"} 
+                                              _hover={{color:"pink"}}
+                                            >
+                                              <Text fontWeight="medium" size="1.5xl">Contact</Text>
+                                            </Button> */}
+                                        </VStack>
+                                      </Box>
+                                  </Center>
+                                }
+                              />  
+                              <Center>
+                              <Box
+                                w='40%'
+                                p={5}
+                                bgColor="pink"
+                                color="black"
+                                borderColor={colorMode === 'dark' ? 'none' : 'pink.200'}
+                                shadow="lg"
+                                my={35}
+                                borderRadius="20px"
+                                borderWidth="1.5px"
+                                // borderWidth={colorMode==='dark' ? '2.5px' : "none"}
+                                >
+                                <Center>
+                                  <Text fontSize="3xl" fontWeight="medium" color="black">
+                                        The genre that brings you both together is
+                                  </Text>
+                                </Center>
+                                <Center>
+                                  <Text fontSize="3xl" fontWeight="medium" color="black" >
+                                          {matchedGenre}
+                                  </Text> 
+                                </Center>
+                                </Box>
+                                </Center>
+                            </ModalBody>
+
+                            <ModalFooter>
+                              <Center>
+                                <Button
+                                    onClick={onClose}
+                                    borderRadius="full"
+                                    aria-label='Cancel'
+                                    // width={30}
+                                    // height={30}
+                                    variant={colorMode ==='dark'? "solid" : "ghost"} 
+                                    colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                                    rightIcon={<CloseIcon/>}
+                                    border={colorMode ==='dark'? "0px" : "2px"} 
+                                  >
+                                    Cancel Search
+                                </Button>
+                              </Center>
+                            </ModalFooter>
+
+                          </ModalContent>
+                          </Flex>
+                        </Modal>
+                      </Box>
+                      <Box>
+                    
+                    
+
+                    </Box>
+                    
+                </VStack>
+                </Flex>
+                </Box>
+
+                {/* <Box
+                  p="35px"
+                  width="300px"
+                  height="500px"
+                  rounded="20px"
+                  shadow="lg"
+                  bg={(colorMode === 'dark' ? '#fcd5ce' : '#fff')}
+                  display={foundMatch === false ? false : true}>
+                  <VStack>
+                    <Heading mb={3} fontSize = "4xl" color="black">
+                      Your Matches
+                    </Heading>
+                  <Img
+                  src={matchedImage}
+                  borderRadius = "full"
+                  >
+
+                  </Img>
+
+                    <Text fontSize="3xl" fontWeight="medium" color="black">
+                      {matchedName}
+                    </Text>
+                    <Text fontSize="lg" fontWeight="small" color="black">
+                      {matchedCountry}
+                    </Text>
+                        <Button
+                          mt={7}
+                          // spinner={<BeatLoader size={8} color='white' />}
+                          // onClick={handleMatchButtonClick}
+                          onClick={<MatchDetailsModal></MatchDetailsModal>}
+                          
+                          // colorScheme='teal'
+                          variant={colorMode ==='dark'? "solid" : "outline"} 
+                          size="lg"
+                          colorScheme={colorMode ==='dark'? "pink" : "none"} 
+                          border={colorMode ==='dark'? "0px" : "2px"} 
+                          _hover={{color:"pink"}}
+                        >
+                          <Text fontWeight="medium" size="1.5xl">Contact</Text>
+                        </Button>
+                    </VStack>
+                    </Box> */}
+                  </HStack>
+              
           
+          
+        </Stack>
+        </Flex>
   )
 }  
