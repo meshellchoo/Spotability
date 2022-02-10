@@ -35,21 +35,14 @@ function LandingPage () {
   const [isDesktop, setIsDesktop] = useState(false);
   const [spotifyAuthData, setSpotifyAuthData] = useState(null);
   const [spotifyAuthLink, setSpotifyAuthLink] = useState("");
-  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/spotability/spotify-url/").then(({ data }) => {
       setSpotifyAuthData(data);
       setSpotifyAuthLink(data.url);
-      setLoading(false)
     });
   }, []);
 
-  if (isLoading) {
-    return <div className="App">
-      <Spinner  size='xl' color='red.500' />
-    </div>;
-  }
 
   return (
     <Container>

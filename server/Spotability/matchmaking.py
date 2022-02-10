@@ -30,15 +30,17 @@ def get_a_match(request):
 def generate_random_match(user):
     counter = 0
     genre_obj = GenreCollection()
-    potential_matches = genre_obj.get_all_matches_in_genre(user['top_genres'][0])
+    all_users_in_genre = genre_obj.get_all_matches_in_genre(user['top_genres'][0])
+    # TODO - should go to the next most popular genre 
+    if len(all_users_in_genre) == 0:
+        return 'michaelchu@ymail.com',user['top_genres'][0]
+    potential_matches = list(set(all_users_in_genre['email']) - set(user["previously_seen"]))
     rand = random.randint(0,len(potential_matches)-1)
-    match = potential_matches['email'][1]
-    while (match == user["email"] or match in user["previously_seen"]) and counter < len(potential_matches): 
+    match = potential_matches[rand]
+    while (match in user["previously_seen"]) and counter < len(potential_matches): 
         rand = random.randint(0,len(potential_matches)-1)
         match = potential_matches['email'][rand]
         counter += 1
-    if len(potential_matches) == 0:
-        return 'michaelchu@ymail.com',user['top_genres'][0]
     return match,user['top_genres'][0]
 
 def like_match(request):

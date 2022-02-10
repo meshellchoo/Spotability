@@ -57,7 +57,7 @@ def spotify_callback(request, format=None):
             "people_who_swiped_you": {},
             "people_who_you_swiped":{},
             "mutual_swipes": {} ,
-            "previously_seen": {},
+            "previously_seen": {data["email"]:data["email"]},
             "top_artist" :get_top_artist_from_user(access_token),
             "top_track_from_top_genre" :get_top_track_from_top_genre(access_token),
             "recommended_tracks" : get_recommended_track(access_token)
