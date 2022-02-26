@@ -1,8 +1,15 @@
-import React from "react";
-import { Box } from "@chakra-ui/react";
+import React from 'react';
+import { Box } from '@chakra-ui/react';
 
-export const Container = (props) => (
-  <Box w="full" mx="auto" maxW="5xl" px={{ base: "5", md: "8" }} {...props} />
+export const Container = props => (
+  <Box
+    w="100%"
+    mx="auto"
+    maxW="3xl"
+    px={{ base: '5', md: '7' }}
+    overflow={'auto'}
+    {...props}
+  />
 );
 
 export default Container;
