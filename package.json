@@ -5,7 +5,11 @@
     "axios": "^0.25.0",
     "axios-delay": "^1.0.0-rc6",
     "framer": "^2.0.0",
+    "pure-react-carousel": "^1.28.1",
     "react-card-rotate-swiper": "0.0.14",
     "react-loader-spinner": "^5.1.2"
+  },
+  "devDependencies": {
+    "react-multi-carousel": "^2.8.0"
   }
 }
